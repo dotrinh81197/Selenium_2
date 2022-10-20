@@ -1,0 +1,17 @@
+{
+  "platform": "ios",
+  "capabilities": {
+    "caps": {
+      "platformName": "iOS",
+      "deviceName": "iPhone X",
+      "automationName": "XCUITest",
+      "platformVersion": "13.4.1",
+      "resetKeyboard": true,
+      "udid": "auto",
+      "bundleId": "com.demo.v2"
+    }
+  },
+  "remote": "http://localhost:4723/wd/hub",
+  "timeout": 30000,
+  "pollingInterval": 500
+}

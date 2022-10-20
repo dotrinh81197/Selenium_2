@@ -1,0 +1,17 @@
+{
+  "platform": "android",
+  "capabilities": {
+    "caps": {
+      "platformName": "Android",
+      "deviceName": "Samsung",
+      "appPackage": "com.demo.beta.staging",
+      "appActivity": "com.demo.activity.MainActivity",
+      "unicodeKeyboard": true,
+      "resetKeyboard": true,
+      "autoGrantPermissions": true
+    }
+  },
+  "remote": "http://localhost:4723/wd/hub",
+  "timeout": 30000,
+  "pollingInterval": 200
+}
