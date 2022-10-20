@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" name="Android Suite">
+    <listeners>
+        <listener class-name="com.auto.testng.TestListener"/>
+    </listeners>
+
+    <test name="Regression tests">
+        <parameter name="platform" value="chrome"/>
+        <classes>
+            <class name="com.auto.test.tadashboard.DA_LOGIN_TC001"/>
+            <class name="com.auto.test.tadashboard.DA_LOGIN_TC002"/>
+        </classes>
+    </test>
+
+</suite>

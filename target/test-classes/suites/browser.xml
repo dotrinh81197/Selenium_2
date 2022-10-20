@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" name="Browser Suite">
+    <listeners>
+        <listener class-name="com.auto.testng.TestListener"/>
+    </listeners>
+
+    <test name="Sample tests">
+        <parameter name="platform" value="chrome"/>
+        <classes>
+            <class name="com.auto.test.browser.GoogleTests"/>
+        </classes>
+    </test>
+
+</suite>

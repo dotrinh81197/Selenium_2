@@ -21,7 +21,8 @@ public class DA_LOGIN_TC001 extends BrowserTestBase {
     @Test(description = "Verify that user can login specific repository successfully via Dashboard login page with correct credentials")
     public void DA_LOGIN_TC001_User_can_login_specific_repository_via_login_page() {
         Reporter.log("Step 1: Navigate to Dashboard login page");
-        open("http://192.168.0.106/TADashboard/login.jsp");
+        open("http://192.168.0.107/TADashboard/login.jsp");
+
 
         Reporter.log("Step 2: Enter valid username and password and Click on Login button");
         user = User.instance().getUser();

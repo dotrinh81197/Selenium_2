@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
+  <reporter-output>
+    <line>
+      <![CDATA[Step 1: Navigate to Dashboard login page]]>
+    </line>
+    <line>
+      <![CDATA[Step 2: Enter valid username and password and Click on Login button]]>
+    </line>
+    <line>
+      <![CDATA[Step 3: Verify that Dashboard Main page appears]]>
+    </line>
+    <line>
+      <![CDATA[Post-Condition: Log out and Close Dashboard]]>
+    </line>
+    <line>
+      <![CDATA[Step 1: Navigate to Dashboard login page]]>
+    </line>
+    <line>
+      <![CDATA[Step 2: Enter invalid username and password]]>
+    </line>
+    <line>
+      <![CDATA[Step 3: Verify that Dashboard Main page appears]]>
+    </line>
+    <line>
+      <![CDATA[Post-Condition: Close message and Close Dashboard]]>
+    </line>
+  </reporter-output>
+  <suite name="Android Suite" duration-ms="11300" started-at="2022-10-20T20:54:47 ICT" finished-at="2022-10-20T20:54:59 ICT">
+    <groups>
+    </groups>
+    <test name="Regression tests" duration-ms="11300" started-at="2022-10-20T20:54:47 ICT" finished-at="2022-10-20T20:54:59 ICT">
+      <class name="com.auto.test.tadashboard.DA_LOGIN_TC001">
+        <test-method status="PASS" signature="beforeAll(java.lang.String)[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC001@411341bd]" name="beforeAll" is-config="true" duration-ms="219" started-at="2022-10-20T20:54:47 ICT" finished-at="2022-10-20T20:54:48 ICT">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeAll -->
+        <test-method status="PASS" signature="DA_LOGIN_TC001_User_can_login_specific_repository_via_login_page()[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC001@411341bd]" name="DA_LOGIN_TC001_User_can_login_specific_repository_via_login_page" duration-ms="6079" started-at="2022-10-20T20:54:48 ICT" description="Verify that user can login specific repository successfully via Dashboard login page with correct credentials" finished-at="2022-10-20T20:54:54 ICT">
+          <reporter-output>
+            <line>
+              <![CDATA[Step 1: Navigate to Dashboard login page]]>
+            </line>
+            <line>
+              <![CDATA[Step 2: Enter valid username and password and Click on Login button]]>
+            </line>
+            <line>
+              <![CDATA[Step 3: Verify that Dashboard Main page appears]]>
+            </line>
+            <line>
+              <![CDATA[Post-Condition: Log out and Close Dashboard]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- DA_LOGIN_TC001_User_can_login_specific_repository_via_login_page -->
+        <test-method status="PASS" signature="afterAll()[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC001@411341bd]" name="afterAll" is-config="true" duration-ms="1232" started-at="2022-10-20T20:54:54 ICT" finished-at="2022-10-20T20:54:55 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterAll -->
+      </class> <!-- com.auto.test.tadashboard.DA_LOGIN_TC001 -->
+      <class name="com.auto.test.tadashboard.DA_LOGIN_TC002">
+        <test-method status="PASS" signature="beforeAll(java.lang.String)[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC002@2c5d601e]" name="beforeAll" is-config="true" duration-ms="2" started-at="2022-10-20T20:54:55 ICT" finished-at="2022-10-20T20:54:55 ICT">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeAll -->
+        <test-method status="PASS" signature="DA_LOGIN_TC002_User_can_not_login_specific_repository_via_login_page_with_incorrect_credentials()[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC002@2c5d601e]" name="DA_LOGIN_TC002_User_can_not_login_specific_repository_via_login_page_with_incorrect_credentials" duration-ms="2370" started-at="2022-10-20T20:54:55 ICT" description="Verify that user fails to login specific repository successfully via Dashboard login page with incorrect credentials			
+" finished-at="2022-10-20T20:54:58 ICT">
+          <reporter-output>
+            <line>
+              <![CDATA[Step 1: Navigate to Dashboard login page]]>
+            </line>
+            <line>
+              <![CDATA[Step 2: Enter invalid username and password]]>
+            </line>
+            <line>
+              <![CDATA[Step 3: Verify that Dashboard Main page appears]]>
+            </line>
+            <line>
+              <![CDATA[Post-Condition: Close message and Close Dashboard]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- DA_LOGIN_TC002_User_can_not_login_specific_repository_via_login_page_with_incorrect_credentials -->
+        <test-method status="PASS" signature="afterAll()[pri:0, instance:com.auto.test.tadashboard.DA_LOGIN_TC002@2c5d601e]" name="afterAll" is-config="true" duration-ms="1166" started-at="2022-10-20T20:54:58 ICT" finished-at="2022-10-20T20:54:59 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterAll -->
+      </class> <!-- com.auto.test.tadashboard.DA_LOGIN_TC002 -->
+    </test> <!-- Regression tests -->
+  </suite> <!-- Android Suite -->
+</testng-results>

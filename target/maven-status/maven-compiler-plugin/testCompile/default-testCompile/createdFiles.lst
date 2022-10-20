@@ -1,0 +1,7 @@
+com\auto\test\browser\GoogleTests.class
+com\auto\test\tadashboard\DA_LOGIN_TC001.class
+com\auto\test\browser\BrowserTestBase.class
+com\auto\test\tadashboard\DA_LOGIN_TC002.class
+com\auto\test\TestBase.class
+com\auto\test\JiraTests.class
+com\auto\test\sanity\ItemsTest.class
