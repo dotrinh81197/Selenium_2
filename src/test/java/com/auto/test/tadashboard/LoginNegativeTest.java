@@ -2,35 +2,28 @@ package com.auto.test.tadashboard;
 
 import com.auto.model.UserModel;
 import com.auto.page.tadashboard.LoginPage;
-import com.auto.page.tadashboard.MainPage;
-import com.auto.test.browser.BrowserTestBase;
-import org.testng.Reporter;
+import com.auto.test.TestBase;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import static com.auto.utils.Constants.LOGIN_PAGE_URL;
 import static com.logigear.statics.Selaium.open;
 
-public class DA_LOGIN_TC002 extends BrowserTestBase {
+public class LoginNegativeTest extends TestBase {
     private UserModel user;
     private LoginPage loginPage = new LoginPage();
     SoftAssert softAssert = new SoftAssert();
 
 
-    @Test(description = "Verify that user fails to login specific repository successfully via Dashboard login page with incorrect credentials\t\t\t\n")
+    @Test(description = "Verify that user fails to login specific repository successfully via Dashboard login page with incorrect credentials")
     public void DA_LOGIN_TC002_User_can_not_login_specific_repository_via_login_page_with_incorrect_credentials() {
-        Reporter.log("Step 1: Navigate to Dashboard login page");
-        open("http://192.168.0.107/TADashboard/login.jsp");
+        open(LOGIN_PAGE_URL);
 
-        Reporter.log("Step 2: Enter invalid username and password");
         user = new UserModel("invalidUserNameAndInvalidPassword");
         loginPage.login(user);
 
-        Reporter.log("Step 3: Verify that Dashboard Main page appears");
-
         softAssert.assertTrue(loginPage.doesAlertTextDisplays());
 
-        Reporter.log("Post-Condition: Close message and Close Dashboard");
         loginPage.acceptAlert();
     }
-
 }

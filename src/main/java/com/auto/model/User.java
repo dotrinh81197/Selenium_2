@@ -18,7 +18,7 @@ public class User {
         Type userListType = new TypeToken<ArrayList<UserModel>>() {
         }.getType();
         this.users = JsonUtils.toList(ConfigFiles.get(ACCOUNT), userListType);
-        System.out.println(this.users );
+        System.out.println(this.users);
     }
 
     public List<UserModel> users() {
@@ -33,9 +33,6 @@ public class User {
     }
 
     public UserModel getUser() {
-//        Random r = new Random();
-//        return this.users.get(r.nextInt(this.users.size()));
-//        users.
         return this.users.get(0);
     }
 }

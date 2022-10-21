@@ -8,8 +8,8 @@
     <test name="Regression tests">
         <parameter name="platform" value="chrome"/>
         <classes>
-            <class name="com.auto.test.tadashboard.DA_LOGIN_TC001"/>
-            <class name="com.auto.test.tadashboard.DA_LOGIN_TC002"/>
+            <class name="com.auto.test.tadashboard.LoginPositiveTest"/>
+            <class name="com.auto.test.tadashboard.LoginNegativeTest"/>
         </classes>
     </test>
 
