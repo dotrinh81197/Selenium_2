@@ -1,0 +1,26 @@
+{
+  "validUser": [
+    {
+      "userName": "administrator",
+      "password": ""
+    }
+  ],
+  "invalidUserNameAndInvalidPassword": [
+    {
+      "userName": "abc",
+      "password": "abc"
+    }
+  ],
+  "validUserNameAndInvalidPassword": [
+    {
+      "userName": "administrator",
+      "password": "abc"
+    }
+  ],
+  "blankUserNameAndPassword": [
+    {
+      "userName": "",
+      "password": ""
+    }
+  ]
+}
