@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.auto.utils.Constants.INVALID_USERNAME_PASSWORD;
 import static com.logigear.statics.Selaium.driver;
 
 
@@ -49,7 +50,7 @@ public class LoginPage {
     public boolean doesAlertTextDisplays() {
         waitForAlertDisplays();
         String alertText = driver().getWebDriver().switchTo().alert().getText();
-        return alertText.equalsIgnoreCase("Username or password is invalid");
+        return alertText.equalsIgnoreCase(INVALID_USERNAME_PASSWORD);
     }
 
     @Step("Accept alert popup")
