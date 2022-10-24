@@ -1,7 +1,8 @@
 package com.auto.data.enums;
 
 public enum Data {
-    INVALID_USER(System.getProperty("user.dir") + "/src/main/java/com/auto/model/data/InvalidUsers.json");
+    INVALID_USER(System.getProperty("user.dir") + "/src/main/java/com/auto/model/data/InvalidUsers.json"),
+    ALERT_MESSAGE(System.getProperty("user.dir") + "/src/main/java/com/auto/model/data/AlertMessage.json");
 
     private String value;
 

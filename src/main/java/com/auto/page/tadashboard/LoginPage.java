@@ -1,5 +1,6 @@
 package com.auto.page.tadashboard;
 
+import com.auto.model.Repository;
 import com.auto.model.User;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
@@ -52,4 +53,12 @@ public class LoginPage {
         return alertText.equalsIgnoreCase(text);
     }
 
+    @Step("Select repository")
+    public void selectRepository(Repository repository) {
+        repositoryDrl.select(repository.getRepositoryName());
+    }
+
+    public boolean doesLoginPageNotDisplay() {
+        return !repositoryDrl.isDisplayed() && !userNameTxt.isDisplayed() && !passwordTxt.isDisplayed() && !loginBtn.isDisplayed();
+    }
 }
