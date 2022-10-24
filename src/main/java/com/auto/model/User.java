@@ -1,38 +1,27 @@
 package com.auto.model;
 
-import com.google.common.reflect.TypeToken;
+import com.auto.data.enums.Data;
+import com.auto.utils.Constants;
 import com.auto.utils.JsonUtils;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.Hashtable;
 
-import static com.auto.utils.Constants.*;
-
+@lombok.Data
 public class User {
-    private static User instance = null;
-    private List<UserModel> users;
+    private String username;
+    private String password;
 
-    private User() {
-        Type userListType = new TypeToken<ArrayList<UserModel>>() {
-        }.getType();
-        this.users = JsonUtils.toList(ConfigFiles.get(ACCOUNT), userListType);
-        System.out.println(this.users);
+    private static Hashtable<String, String> data;
+
+    public User() {
+        this.username = Constants.VALID_USERNAME;
+        this.password = Constants.VALID_PASSWORD;
     }
 
-    public List<UserModel> users() {
-        return this.users;
+    public User(String typeOfUser) {
+        data = JsonUtils.getData(typeOfUser, Data.INVALID_USER);
+        this.username = data.get("userName");
+        this.password = data.get("password");
     }
 
-    public static User instance() {
-        if (instance == null) {
-            instance = new User();
-        }
-        return instance;
-    }
-
-    public UserModel getUser() {
-        return this.users.get(0);
-    }
 }
