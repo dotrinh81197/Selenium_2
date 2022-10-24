@@ -1,0 +1,23 @@
+{
+  "invalidUserNameAndInvalidPassword": [
+    {
+      "userName": "abc",
+      "password": "abc",
+      "error": "Username or password is invalid"
+    }
+  ],
+  "validUserNameAndInvalidPassword": [
+    {
+      "userName": "administrator",
+      "password": "abc",
+      "error": "Username or password is invalid"
+    }
+  ],
+  "blankUserNameAndPassword": [
+    {
+      "userName": "",
+      "password": "",
+      "error": "Username or password is invalid"
+    }
+  ]
+}

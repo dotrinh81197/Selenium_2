@@ -1,8 +1,8 @@
 package com.auto.page;
 
-import com.auto.model.UserModel;
+import com.auto.model.User;
 
 public interface ILoginPage {
 
-    void login(UserModel user);
+    void login(User user);
 }

@@ -3,10 +3,5 @@
     "type": "a",
     "username": "administrator",
     "password": ""
-  },
-  {
-    "type": "b",
-    "username": "",
-    "password": "administrator"
   }
 ]
