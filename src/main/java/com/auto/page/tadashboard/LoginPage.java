@@ -58,6 +58,7 @@ public class LoginPage {
         repositoryDrl.select(repository.getRepositoryName());
     }
 
+    @Step("Check Login page not display")
     public boolean doesLoginPageNotDisplay() {
         return !repositoryDrl.isDisplayed() && !userNameTxt.isDisplayed() && !passwordTxt.isDisplayed() && !loginBtn.isDisplayed();
     }
