@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 
 import static com.auto.utils.Constants.ConfigFiles;
+import static com.auto.utils.Constants.LOADING_TIME;
 
 public class TestBase {
 

@@ -1,6 +1,7 @@
 package com.auto.page.tadashboard;
 
 import com.auto.model.User;
+import com.auto.utils.WebDriverUltis;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,15 +40,11 @@ public class LoginPage {
         loginBtn.click();
     }
 
-    @Step("Wait for alert display")
-    public void waitForAlertDisplays() {
-        Duration waitTime = Duration.ofSeconds(2);
-        new WebDriverWait(driver().getWebDriver(), waitTime).until(ExpectedConditions.alertIsPresent());
-    }
+
 
     @Step("Check Alert text display")
     public boolean doesAlertTextDisplay(String text) {
-        waitForAlertDisplays();
+        WebDriverUltis.waitForAlertDisplays();
         String alertText = driver().getWebDriver().switchTo().alert().getText();
         return alertText.equalsIgnoreCase(text);
     }
