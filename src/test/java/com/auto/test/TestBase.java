@@ -1,5 +1,6 @@
 package com.auto.test;
 
+import com.auto.page.tadashboard.DashboardPage;
 import com.auto.utils.ExecutionContext;
 import com.logigear.statics.Selaium;
 import com.logigear.utils.ConfigLoader;
@@ -9,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
+import org.testng.internal.annotations.IBeforeMethod;
 
 import static com.auto.utils.Constants.ConfigFiles;
 import static com.auto.utils.Constants.LOADING_TIME;
@@ -32,6 +34,17 @@ public class TestBase {
         config.setStartMaximized(true);
         config.setCapabilities(options);
         Selaium.setConfig(config);
+    }
+
+    @BeforeMethod
+    public void beforeMethod(){
+
+    }
+
+    @AfterMethod
+    public void afterMethod(){
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.logout();
     }
 
     @AfterClass
