@@ -26,7 +26,7 @@ public class DashboardPage {
     private final Element numberColumnsDrl = new Element("//select[@id='columnnumber']");
     private final Element displayAfterDrl = new Element("//select[@id='afterpage']");
     private final Element publicCb = new Element("//input[@id='isprotected']");
-    private final Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')and text()='%s']");
+    private final Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard') and text()= '%s']");
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -144,14 +144,26 @@ public class DashboardPage {
 
     @Step("Click on page name")
     public void clickOnPage(String pageName) {
-        try {
-            pageLnk.set(pageName);
-            pageLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
-            pageLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
-            pageLnk.click();
-        } catch (Exception e) {
-            Allure.description(String.valueOf(e));
+        pageLnk.set(pageName);
+        pageLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
+        pageLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
+        pageLnk.click();
+    }
+
+    @Step("Click on page name")
+    public void clickOnChildrenPage(Page childrenPage, Page parentPage) {
+
+        if (!childrenPage.getParentPage().equalsIgnoreCase("")) {
+            if (!parentPage.getParentPage().equalsIgnoreCase("")) {
+                pageLnk.set(parentPage.getParentPage().trim());
+                pageLnk.hover();
+            }
+            pageLnk.set(childrenPage.getParentPage().trim());
+            pageLnk.hover();
         }
+        pageLnk.set(childrenPage.getPageName());
+        pageLnk.click();
+
     }
 
     @Step("Click Delete button")
@@ -171,7 +183,6 @@ public class DashboardPage {
 
     @Step("Create a new page")
     public void createNewPage(Page page) {
-
         clickAddPageBtn();
         enterPageNameTxt(page.getPageName());
         if (!page.getParentPage().equalsIgnoreCase("")) {
@@ -191,11 +202,13 @@ public class DashboardPage {
     }
 
     @Step("Remove Children Page")
-    public void removeChildrenPage(String parentPage, String childrenPage) {
-        clickOnPage(parentPage);
-        clickOnPage(childrenPage);
+    public void removeChildrenPage(Page childrenPage, Page parentPage) {
+        clickOnChildrenPage(childrenPage, parentPage);
+
         clickDeletePageBtn();
+        WebDriverUltis.acceptAlert();
     }
+
 
     @Step("Check Page is not display")
     public boolean doesPageNotDisplay(Page page) {
@@ -207,6 +220,13 @@ public class DashboardPage {
     @Step("Check button delete is not display")
     public boolean doesDeleteButtonIsNotDisplay() {
         return Utilities.doesElementIsNotDisplay(deletePageBtn);
+    }
+
+    public boolean doesNewPageDisplay(Page page, Page parentPage) {
+        clickOnChildrenPage(page, parentPage);
+        pageLnk.set(page.getPageName().trim());
+        return pageLnk.isDisplayed();
+
     }
 
 }
