@@ -5,7 +5,6 @@ import com.auto.utils.Constants;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
 import com.logigear.element.Element;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
@@ -21,7 +20,9 @@ public class DashboardPage {
     private final Element newPageDialogTitleLbl = new Element("//div[@id='div_popup']//td[@class='ptc']/h2");
     private final Element pageNameTxt = new Element("//input[@class='page_txt_name']");
     private final Element OKBtn = new Element("//input[@id='OK']");
+    private final Element cancelBtn = new Element("//input[@id='Cancel']");
     private final Element deletePageBtn = new Element("//a[contains(@href, 'Dashboard.doDeletePage')]");
+    private final Element editPageBtn = new Element("//a[@class='edit']");
     private final Element pageParentDrl = new Element("//select[@id='parent']");
     private final Element numberColumnsDrl = new Element("//select[@id='columnnumber']");
     private final Element displayAfterDrl = new Element("//select[@id='afterpage']");
@@ -60,7 +61,7 @@ public class DashboardPage {
     @Step("Check Global Setting link unclickable")
     public boolean isGlobalSettingLnkUnClickable() {
         try {
-            clickGlobalSettingLnk();
+            hoverGlobalSettingLnk();
             return true;
         } catch (Exception e) {
             return false;
@@ -68,10 +69,10 @@ public class DashboardPage {
     }
 
     @Step("Click on Global Setting link")
-    public void clickGlobalSettingLnk() {
+    public void hoverGlobalSettingLnk() {
         globalSettingLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
         globalSettingLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
-        globalSettingLnk.click();
+        globalSettingLnk.hover();
     }
 
     @Step("Check new page dialog title display")
@@ -111,6 +112,12 @@ public class DashboardPage {
         OKBtn.click();
     }
 
+    @Step
+    public void clickCancelBtn() {
+        cancelBtn.waitForVisible();
+        cancelBtn.click();
+    }
+
     @Step("Click on Global Setting link")
     public String getPageNameTxt(Element element) {
         return element.getText();
@@ -139,15 +146,13 @@ public class DashboardPage {
         clickOnPage(pageName);
         clickDeletePageBtn();
         WebDriverUltis.acceptAlert();
-
     }
 
     @Step("Click on page name")
     public void clickOnPage(String pageName) {
         pageLnk.set(pageName);
-        pageLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
-        pageLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
-        pageLnk.click();
+        WebDriverUltis.forceClick(pageLnk.element());
+        WebDriverUltis.waitForPageLoad();
     }
 
     @Step("Click on page name")
@@ -168,16 +173,24 @@ public class DashboardPage {
 
     @Step("Click Delete button")
     public void clickDeletePageBtn() {
-        clickGlobalSettingLnk();
+        hoverGlobalSettingLnk();
         deletePageBtn.waitForVisible();
         deletePageBtn.click();
     }
 
     @Step("Click Add Page button")
     public void clickAddPageBtn() {
-        clickGlobalSettingLnk();
+        hoverGlobalSettingLnk();
         addPageBtn.waitForVisible();
         addPageBtn.click();
+    }
+
+    @Step
+    public void clickEditPage() {
+        WebDriverUltis.waitForPageLoad();
+        hoverGlobalSettingLnk();
+        editPageBtn.waitForClickable();
+        editPageBtn.click();
     }
 
 
@@ -222,10 +235,45 @@ public class DashboardPage {
         return Utilities.doesElementIsNotDisplay(deletePageBtn);
     }
 
+    @Step
     public boolean doesNewPageDisplay(Page page, Page parentPage) {
         clickOnChildrenPage(page, parentPage);
         pageLnk.set(page.getPageName().trim());
         return pageLnk.isDisplayed();
+
+    }
+
+    @Step
+    public void editPageName(Page page, String newPageName) {
+        WebDriverUltis.waitForPageLoad();
+        clickOnPage(page.getPageName());
+        clickEditPage();
+        page.setPageName(newPageName);
+        pageNameTxt.enter(page.getPageName());
+        OKBtn.click();
+    }
+
+    @Step
+    public void editDisplayAfter(Page page, String displayAfter) {
+        WebDriverUltis.waitForPageLoad();
+        clickOnPage(page.getPageName());
+        clickEditPage();
+        WebDriverUltis.waitForPageLoad();
+        selectDisplayAfterDrl(displayAfter);
+        OKBtn.click();
+    }
+
+    @Step
+    public boolean doesNewPageDisplay(Page page) {
+        List<WebElement> pageList = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]").elements();
+        Integer pageNumber = pageList.size();
+
+        for (int i = 0; i < pageNumber; i++) {
+            if (pageList.get(i).getText().equalsIgnoreCase(page.getPageName())) {
+                return true;
+            }
+        }
+        return false;
 
     }
 

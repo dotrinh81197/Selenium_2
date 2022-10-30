@@ -25,24 +25,6 @@ public class DashboardPositiveTest extends TestBase {
     LoginPage loginPage = new LoginPage();
     SoftAssert softAssert = new SoftAssert();
 
-    //negative
-    @Test(description = "Verify that user is unable open more than 1 New Page dialog")
-    public void DA_MP_TC011_User_is_unable_open_more_than_1_New_Page_dialog() {
-        open(LOGIN_PAGE_URL);
-
-        loginPage.login(user);
-
-        DashboardPage dashboardPage = new DashboardPage();
-        softAssert.assertTrue(dashboardPage.doesContentDisplay());
-
-        dashboardPage.clickAddPageBtn();
-
-        dashboardPage.doesNewPageDialogTitleDisplay();
-
-        softAssert.assertTrue(dashboardPage.isGlobalSettingLnkUnClickable());
-
-    }
-
     @Test(description = "Verify that user is able to add additional pages besides Overview page successfully")
     public void DA_MP_TC012_User_is_able_to_add_additional_pages_besides_Overview_page_successfully() throws InterruptedException {
 
@@ -106,11 +88,11 @@ public class DashboardPositiveTest extends TestBase {
         Page parentPage = new Page("parentPage");
         dashboardPage.createNewPage(parentPage);
 
-        WebDriverUltis.waitForPageLoad();
+        Selaium.pause(LOADING_TIME);
 
         Page childPage = new Page("childPage1");
         dashboardPage.createNewPage(childPage);
-
+        Selaium.pause(LOADING_TIME);
         dashboardPage.clickOnPage(parentPage.getPageName());
         dashboardPage.clickDeletePageBtn();
 
@@ -159,7 +141,7 @@ public class DashboardPositiveTest extends TestBase {
         Page parentPage = new Page("parentPage");
         dashboardPage.createNewPage(parentPage);
 
-        WebDriverUltis.waitForPageLoad();
+        Selaium.pause(LOADING_TIME);
 
         Page childPage = new Page("childPage1");
         dashboardPage.createNewPage(childPage);
@@ -232,6 +214,109 @@ public class DashboardPositiveTest extends TestBase {
 
         dashboardPage.removeChildrenPage(page1, overViewPage);
 
+    }
+
+    @Test(description = "Verify that user is able to edit the name of the page (Parent/Sibbling) successfully")
+    public void DA_MP_TC021_User_is_able_to_edit_the_name_of_the_page_Parent_Sibbling_successfully() {
+        open(LOGIN_PAGE_URL);
+
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page1 = new Page("page1");
+        Page page2 = new Page("page2");
+        dashboardPage.createNewPage(page1);
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.createNewPage(page2);
+        Selaium.pause(LOADING_TIME);
+
+        dashboardPage.editPageName(page1, "Page3");
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.doesNewPageDisplay(page1);
+        dashboardPage.editPageName(page2, "Page4");
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.doesNewPageDisplay(page2);
+        Selaium.pause(LOADING_TIME);
+
+        dashboardPage.removePage(page2.getPageName());
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.removePage(page1.getPageName());
+    }
+
+    @Test(description = "Verify that user is able to edit the parent page of the sibbling page successfully")
+    public void DA_MP_TC023_User_is_able_to_edit_the_parent_page_of_the_sibbling_page_successfully() {
+        open(LOGIN_PAGE_URL);
+
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page1 = new Page("page1");
+        Page page2 = new Page("page2");
+        dashboardPage.createNewPage(page1);
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.createNewPage(page2);
+        Selaium.pause(LOADING_TIME);
+
+        dashboardPage.editPageName(page1, "Page3");
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.doesNewPageDisplay(page1);
+
+        dashboardPage.removePage(page2.getPageName());
+        Selaium.pause(10000);
+        dashboardPage.removePage(page1.getPageName());
+    }
+
+    @Test(description = "Verify that \"Bread Crums\" navigation is correct")
+    public void DA_MP_TC024_Bread_Crums_navigation_correctly() {
+        open(LOGIN_PAGE_URL);
+
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        Page overviewPage = new Page("overviewPage");
+        Page page1 = new Page("page1");
+        Page page2 = new Page("page2");
+        dashboardPage.createNewPage(page1);
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.createNewPage(page2);
+        Selaium.pause(LOADING_TIME);
+
+        dashboardPage.clickOnPage(page1.getPageName());
+        String currentTitlePage = WebDriverUltis.getCurrentTitlePage();
+        softAssert.assertTrue(currentTitlePage.contains(page1.getPageName()));
+
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.clickOnPage(page2.getPageName());
+        currentTitlePage = WebDriverUltis.getCurrentTitlePage();
+        softAssert.assertTrue(currentTitlePage.contains(page2.getPageName()));
+
+        dashboardPage.removePage(page2.getPageName());
+        Selaium.pause(10000);
+        dashboardPage.removePage(page1.getPageName());
+    }
+
+    @Test(description = "Verify that page listing is correct when user edit \"Display After\"  field of a specific page")
+    public void DA_MP_TC025_Page_listing_is_correct_when_user_edit_Display_After_field_of_a_specific_page() {
+        open(LOGIN_PAGE_URL);
+
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        Page overviewPage = new Page("overviewPage");
+        Page page1 = new Page("simplePage");
+        Page page2 = new Page("parentPage");
+        dashboardPage.createNewPage(page1);
+        Selaium.pause(LOADING_TIME);
+        dashboardPage.createNewPage(page2);
+        Selaium.pause(LOADING_TIME);
+
+        dashboardPage.editDisplayAfter(page2, overviewPage.getPageName());
+        WebDriverUltis.waitForPageLoad();
+        dashboardPage.doesNewPageDisplayBeside(page2.getPageName(), overviewPage.getPageName());
+
+        dashboardPage.removePage(page2.getPageName());
+        Selaium.pause(10000);
+        dashboardPage.removePage(page1.getPageName());
     }
 
 }
