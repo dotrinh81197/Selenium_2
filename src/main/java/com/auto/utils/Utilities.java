@@ -1,5 +1,6 @@
 package com.auto.utils;
 
+import com.logigear.Modal;
 import com.logigear.element.Element;
 
 import static com.logigear.statics.Selaium.driver;
@@ -7,7 +8,7 @@ import static com.logigear.statics.Selaium.driver;
 public class Utilities {
 
     public static String getAlertMessage() {
-        return driver().getWebDriver().switchTo().alert().getText();
+        return new Modal(driver()).getAlertText();
     }
 
     public static boolean doesElementIsNotDisplay(Element element) {

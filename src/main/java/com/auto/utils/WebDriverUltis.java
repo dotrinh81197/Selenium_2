@@ -1,22 +1,24 @@
 package com.auto.utils;
 
+import com.logigear.statics.Selaium;
 import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.lang.model.element.Element;
 import java.time.Duration;
 
 
 import static com.logigear.statics.Selaium.driver;
+import static com.logigear.statics.Selaium.driverContainer;
 
 public class WebDriverUltis {
 
     @Step("Accept alert pop up")
     public static void acceptAlert() {
-        driver().getWebDriver().switchTo().alert().accept();
+        Selaium.confirm();
     }
 
 
@@ -35,7 +37,12 @@ public class WebDriverUltis {
         new WebDriverWait(driver().getWebDriver(), Duration.ofSeconds(Constants.WAIT_TIME)).until(condition);
     }
 
+    public static void forceClick(WebElement element) {
+        ((JavascriptExecutor) driver().getWebDriver()).executeScript("arguments[0].click();", element);
+    }
 
-
+    public static String getCurrentTitlePage() {
+        return driverContainer().title();
+    }
 
 }

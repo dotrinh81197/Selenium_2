@@ -26,7 +26,7 @@
   ],
   "pageNameAlreadyExist": [
     {
-      "text": "TestChild1 already exist. Please enter a diffrerent name."
+      "text": "%s already exist. Please enter a diffrerent name."
     }
   ],
   "panelDisplayNameIsRequired": [
