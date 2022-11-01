@@ -5,6 +5,7 @@ import com.auto.utils.ExecutionContext;
 import com.auto.utils.FileUtils;
 import com.logigear.statics.Selaium;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class TestListener implements ITestListener {
     }
 
     @Override
+    @Attachment(type="image/png")
     public void onTestFailure(ITestResult result) {
         try {
             if (Selaium.driverContainer().isAlive()) {
