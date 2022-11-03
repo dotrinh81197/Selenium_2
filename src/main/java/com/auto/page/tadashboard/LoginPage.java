@@ -1,6 +1,5 @@
 package com.auto.page.tadashboard;
 
-import com.auto.model.Repository;
 import com.auto.model.User;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
@@ -17,6 +16,7 @@ public class LoginPage {
     private final Element userNameTxt = new Element("//input[@id='username']");
     private final Element passwordTxt = new Element("//input[@id='password']");
     private final Element loginBtn = new Element("//div[@class='btn-login']");
+    private final Element loginForm = new Element("//div[@class='form']");
 
     @Step("Login by username and password")
     public void login(User user) {
@@ -54,12 +54,12 @@ public class LoginPage {
     }
 
     @Step("Select repository")
-    public void selectRepository(Repository repository) {
-        repositoryDrl.select(repository.getRepositoryName());
+    public void selectRepository(String repositoryName) {
+        repositoryDrl.select(repositoryName);
     }
 
     @Step("Check Login page not display")
     public boolean doesLoginPageNotDisplay() {
-        return !repositoryDrl.isDisplayed() && !userNameTxt.isDisplayed() && !passwordTxt.isDisplayed() && !loginBtn.isDisplayed();
+        return !loginForm.isDisplayed();
     }
 }

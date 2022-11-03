@@ -1,10 +1,5 @@
 {
-  "loginInvalidUserNameAndInvalidPassword": [
-    {
-      "text": "Username or password is invalid"
-    }
-  ],
-  "loginValidUserNameAndInvalidPassword": [
+  "invalidUserNamePassword": [
     {
       "text": "Username or password is invalid"
     }
@@ -62,11 +57,6 @@
   "panelConfigurationErrorEmptyHeightAlert": [
     {
       "text": "Panel height is a required field."
-    }
-  ],
-  "panelConfigurationErrorEmptyFolderAlert": [
-    {
-      "text": "Panel folder is incorrect"
     }
   ],
   "panelConfigurationErrorInvalidFolderAlert": [
