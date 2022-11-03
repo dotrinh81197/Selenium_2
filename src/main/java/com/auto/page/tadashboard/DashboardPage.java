@@ -30,6 +30,36 @@ public class DashboardPage {
     private final Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard') and text()= '%s']");
     private final Element listPageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]");
     private final Element pageNoLnk = new Element("(//div[@id='main-menu']//a[contains(@href,'/TADashboard')])[%d]");
+    private final Element choosePanelBtn = new Element("//a[@id='btnChoosepanel']");
+    private final Element createPanelLnk = new Element("//a[contains(@onclick, 'Dashboard.openAddPanel')]");
+
+    private final Element administerLnk = new Element("//a[@href='#Administer']");
+    private final Element panelLnk = new Element("//a[@href='panels.jsp']");
+    private final Element dataProfilesLnk = new Element("//a[@href='profiles.jsp']");
+
+    private final Element panelDisplayNameTxt = new Element("//input[@id='txtDisplayName']");
+    private final Element panelChartTitleTxt = new Element("//input[@id='txtChartTitle']");
+    private final Element panelCategoryCaptionTxt = new Element("//input[@id='txtCategoryXAxis']");
+    private final Element panelSeriesCaptionTxt = new Element("//input[@id='txtValueYAxis']");
+    private final Element panelCategoryDrl = new Element("//select[@id='cbbCategoryField']");
+    private final Element panelSeriesDrl = new Element("//select[@id='cbbSeriesField']");
+    private final Element panelChartTypeDrl = new Element("//select[@id='cbbChartType']");
+    private final Element panelDataProfileDrl = new Element("//select[@id='cbbProfile']");
+    private final Element panelStyle2DRbn = new Element("//input[@id='rdoChartStyle2D']");
+    private final Element panelStyle3DRbn = new Element("//input[@id='rdoChartStyle3D']");
+    private final Element panelIsShow_cb = new Element("//input[@id='chkShowTitle']");
+    private final Element panelDataLabels_cb = new Element("//div[@id='div_panelPopup']//label[contains(text(), '%s')]/input");
+    private final Element panelTypeRbn = new Element("//div[@id='div_panelPopup']//label[text()=' %s']/input");
+    private final Element panelLegendsRbn = new Element("//div[@id='div_panelPopup']//label[text()=' %s']/input");
+    private final Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
+    private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
+    private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
+    private final Element panelConfigurationCancelBtn = new Element("//input[@onclick='Dashboard.closePanelConfigurationDlg();']");
+    private final Element panelConfigurationOKBtn = new Element("//input[contains(@onclick,'Dashboard.addPanelToPage')]");
+    private final Element heightTxt = new Element("//input[@id='txtHeight']");
+    private final Element folderTxt = new Element("//input[@id='txtFolder']");
+    private final Element panelListLnk = new Element("//div[@class='al_lft']");
+    private final Element selectPageDrl = new Element("//select[@id='cbbPages']");
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -316,6 +346,45 @@ public class DashboardPage {
         clickOnPage(pageName);
        return WebDriverUltis.getCurrentTitlePage().contains(pageName);
     }
+
+
+    @Step
+    public void clickChoosePanelBtn() {
+        choosePanelBtn.click();
+    }
+
+    @Step
+    public void clickCreatePanelBtn() {
+        createPanelLnk.click();
+    }
+
+    @Step
+    public void clickPanelOkBtn() {
+        panelOKBtn.click();
+    }
+
+    @Step
+    public void clickPanelCancelBtn() {
+        panelCancelBtn.click();
+    }
+
+    @Step
+    public void clickAdministerLnk() {
+        administerLnk.click();
+    }
+
+    @Step
+    public void clickPanelLnk() {
+        clickAdministerLnk();
+        panelLnk.click();
+    }
+
+    @Step
+    public void clickDataProfilesLnk() {
+        clickAdministerLnk();
+        dataProfilesLnk.click();
+    }
+
 
 }
 
