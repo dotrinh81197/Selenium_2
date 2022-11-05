@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-
 import static com.logigear.statics.Selaium.driver;
 import static com.logigear.statics.Selaium.driverContainer;
 
@@ -38,6 +37,7 @@ public class WebDriverUltis {
     }
 
     public static void forceClick(WebElement element) {
+        waitForPageLoad();
         ((JavascriptExecutor) driver().getWebDriver()).executeScript("arguments[0].click();", element);
     }
 

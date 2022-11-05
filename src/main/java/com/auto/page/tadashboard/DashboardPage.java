@@ -127,6 +127,7 @@ public class DashboardPage {
 
     @Step("Remove page")
     public void removePage(String pageName) {
+        WebDriverUltis.waitForPageLoad();
         clickOnPage(pageName);
         clickDeletePageBtn();
         WebDriverUltis.acceptAlert();
@@ -159,6 +160,7 @@ public class DashboardPage {
     public void clickDeletePageBtn() {
         hoverGlobalSettingLnk();
         deletePageBtn.waitForVisible();
+        deletePageBtn.waitForClickable();
         deletePageBtn.click();
     }
 
@@ -166,6 +168,7 @@ public class DashboardPage {
     public void clickAddPageBtn() {
         hoverGlobalSettingLnk();
         addPageBtn.waitForVisible();
+        addPageBtn.waitForClickable();
         addPageBtn.click();
     }
 
@@ -200,8 +203,8 @@ public class DashboardPage {
 
     @Step("Remove Children Page")
     public void removeChildrenPage(Page childrenPage, Page parentPage) {
+        WebDriverUltis.waitForPageLoad();
         clickOnChildrenPage(childrenPage, parentPage);
-
         clickDeletePageBtn();
         WebDriverUltis.acceptAlert();
     }
@@ -249,6 +252,7 @@ public class DashboardPage {
 
     @Step
     public boolean doesNewPageDisplay(Page page) {
+        WebDriverUltis.waitForPageLoad();
         List<WebElement> pageList = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]").elements();
         Integer pageNumber = pageList.size();
 

@@ -14,6 +14,8 @@ import org.testng.internal.annotations.IBeforeMethod;
 
 import static com.auto.utils.Constants.ConfigFiles;
 import static com.auto.utils.Constants.LOADING_TIME;
+import static com.auto.utils.Constants.LOGIN_PAGE_URL;
+import static com.logigear.statics.Selaium.open;
 
 public class TestBase {
 
@@ -38,7 +40,7 @@ public class TestBase {
 
     @BeforeMethod
     public void beforeMethod(){
-
+        open(LOGIN_PAGE_URL);
     }
 
     @AfterMethod
