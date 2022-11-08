@@ -16,6 +16,7 @@ public class LoginPage {
     private final Element userNameTxt = new Element("//input[@id='username']");
     private final Element passwordTxt = new Element("//input[@id='password']");
     private final Element loginBtn = new Element("//div[@class='btn-login']");
+    private final Element loginForm = new Element("//div[@class='form']");
 
     @Step("Login by username and password")
     public void login(User user) {
@@ -52,4 +53,13 @@ public class LoginPage {
         return alertText.equalsIgnoreCase(text);
     }
 
+    @Step("Select repository")
+    public void selectRepository(String repositoryName) {
+        repositoryDrl.select(repositoryName);
+    }
+
+    @Step("Check Login page not display")
+    public boolean doesLoginPageNotDisplay() {
+        return !loginForm.isDisplayed();
+    }
 }

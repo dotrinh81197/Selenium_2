@@ -1,0 +1,67 @@
+{
+  "invalidUserNamePassword": [
+    {
+      "text": "Username or password is invalid"
+    }
+  ],
+  "loginBlankUserNameAndPassword": [
+    {
+      "text": "Please enter username!"
+    }
+  ],
+  "removePage": [
+    {
+      "text": "Are you sure you want to remove this page?"
+    }
+  ],
+  "cannotRemoveTestPage": [
+    {
+      "text": "Can not delete page 'Test' since it has children page(s)."
+    }
+  ],
+  "pageNameAlreadyExist": [
+    {
+      "text": "TestChild1 already exist. Please enter a diffrerent name."
+    }
+  ],
+  "panelDisplayNameIsRequired": [
+    {
+      "text": "Display Name is a required field."
+    }
+  ],
+  "panelDisplayNameIsNotValid": [
+    {
+      "text": "Invalid display name. The name cannot contain high ASCII characters or any of the following characters: /:*?<>|\"#[]{}=%;"
+    }
+  ],
+  "duplicatedDisplayNameAlert": [
+    {
+      "text": "Logigear@ already exists. Please enter a different name."
+    }
+  ],
+  "panelChartTitleIsNotValid": [
+    {
+      "text": "Invalid title name. The name cannot contain high ASCII characters or any of the following characters: /:*?<>|\"#[]{}=%;"
+    }
+  ],
+  "panelConfigurationErrorRangeHeightAlert": [
+    {
+      "text": "Panel height must be greater than or equal to 300 and less than or equal to 800."
+    }
+  ],
+  "panelConfigurationErrorFormatHeightAlert": [
+    {
+      "text": "Panel height must be an integer number"
+    }
+  ],
+  "panelConfigurationErrorEmptyHeightAlert": [
+    {
+      "text": "Panel height is a required field."
+    }
+  ],
+  "panelConfigurationErrorInvalidFolderAlert": [
+    {
+      "text": "Panel folder is incorrect"
+    }
+  ]
+}
