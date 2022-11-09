@@ -17,7 +17,6 @@ import org.testng.annotations.Parameters;
 import static com.auto.utils.Constants.LOGIN_PAGE_URL;
 import static com.logigear.statics.Selaium.open;
 
-
 public class TestBase {
 
     private static final Logger log = LoggerFactory.getLogger(TestBase.class);

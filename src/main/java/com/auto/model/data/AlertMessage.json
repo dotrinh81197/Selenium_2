@@ -59,7 +59,7 @@
       "text": "Panel height is a required field."
     }
   ],
-  "panelConfigurationErrorInvalidFolderAlert": [
+  "panelConfigurationErrorEmptyFolderAlert": [
     {
       "text": "Panel folder is incorrect"
     }
