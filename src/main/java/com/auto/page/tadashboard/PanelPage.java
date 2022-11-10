@@ -1,12 +1,9 @@
 package com.auto.page.tadashboard;
 
-import com.auto.model.Page;
 import com.auto.model.Panel;
-import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 
 public class PanelPage extends GeneralPage {
     private final Element addNewLnk = new Element("//a[@href=\"javascript:Dashboard.openAddPanel('');\"]");
@@ -41,10 +38,9 @@ public class PanelPage extends GeneralPage {
     }
 
     @Step
-    public boolean clickOnPage(Page page) {
+    public boolean clickOnPage(String pageName) {
         try {
-            page.getPageName();
-            pageLnk.set(page.getPageName());
+            pageLnk.set(pageName);
             WebDriverUltis.forceClick(pageLnk.element());
             return true;
         } catch (Exception e) {

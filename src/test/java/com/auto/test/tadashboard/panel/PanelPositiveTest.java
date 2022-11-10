@@ -52,8 +52,8 @@ public class PanelPositiveTest extends TestBase {
 
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
-        softAssert.assertFalse(panelPage.clickOnPage(new Page("overviewPage")));
-        softAssert.assertFalse(panelPage.clickOnPage(new Page("Execution Dashboard")));
+        softAssert.assertFalse(panelPage.clickOnPage("Overview"));
+        softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
 
     }
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
@@ -68,8 +68,8 @@ public class PanelPositiveTest extends TestBase {
 
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
-        softAssert.assertFalse(panelPage.clickOnPage(new Page("overviewPage")));
-        softAssert.assertFalse(panelPage.clickOnPage(new Page("Execution Dashboard")));
+        softAssert.assertFalse(panelPage.clickOnPage("Overview"));
+        softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
 
     }
 

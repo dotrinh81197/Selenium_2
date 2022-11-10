@@ -23,6 +23,7 @@ public class AlertMessage {
     public AlertMessage(String typeOfAlert, Page page) {
         data = JsonUtils.getData(typeOfAlert, Data.ALERT_MESSAGE);
         this.text = String.format(data.get("text"), page.getPageName());
+
     }
 
 }
