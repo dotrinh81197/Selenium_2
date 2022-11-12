@@ -5,6 +5,7 @@ import com.auto.model.Page;
 import com.auto.model.Panel;
 import com.auto.model.User;
 import com.auto.page.tadashboard.DashboardPage;
+import com.auto.page.tadashboard.DataProfilesPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
@@ -56,6 +57,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
 
     }
+
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
     public void DA_PANEL_TC029_When_Add_New_Panel_form_is_on_focused_all_other_control_form_is_disabled_or_locked() {
         loginPage.login(user);
@@ -97,4 +99,66 @@ public class PanelPositiveTest extends TestBase {
         panelPage.deleteAllPanels();
 
     }
+
+    @Test(description = "Verify that correct panel setting form is displayed with corresponding panel type selected")
+    public void DA_PANEL_TC031_Panel_Setting_Form_Display_Correctly_With_Corresponding_Panel_Type_Selected() {
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.clickPanelLnk();
+
+        PanelPage panelPage = new PanelPage();
+        panelPage.clickAddNewLink();
+        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Chart Settings"));
+        panelPage.clickPanelTypeRhn("Indicator");
+        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Indicator Settings"));
+        panelPage.clickPanelTypeRhn("Heat Map");
+        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Heat Map Settings"));
+
+    }
+
+    @Test(description = "Verify that Data Profile listing of Add New Panel and Edit Panel control/form are in alphabetical order")
+    public void DA_PANEL_TC033_Data_Profile_listing_of_Add_New_Panel_and_Edit_Panel_control_form_are_in_alphabetical_order() {
+        loginPage.login(user);
+
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.clickPanelLnk();
+
+        PanelPage panelPage = new PanelPage();
+        panelPage.clickAddNewLink();
+        softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
+
+        Panel panel = new Panel("panelValidDisplayName");
+        panelPage.createNewPanel(panel);
+
+        panelPage.clickEditPanel(panel);
+        softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
+
+        panelPage.deleteAllPanels();
+    }
+
+    @Test(description = "Verify that newly created data profiles are populated correctly under the Data Profile dropped down menu in  Add New Panel and Edit Panel control/form")
+    public void DA_PANEL_TC034_Data_Profile_listing_of_Add_New_Panel_and_Edit_Panel_control_form_are_in_alphabetical_order() {
+        loginPage.login(user);
+        String dataProfileName = "giang-data";
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.clickDataProfilesLnk();
+
+        DataProfilesPage dataProfilesPage = new DataProfilesPage();
+        dataProfilesPage.createDataProfile(dataProfileName);
+        WebDriverUltis.waitForPageLoad();
+
+        dashboardPage.clickPanelLnk();
+        PanelPage panelPage = new PanelPage();
+        panelPage.clickAddNewLink();
+
+        softAssert.assertTrue(panelPage.doesDataProfileContainIntoDrl(dataProfileName));
+        softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
+
+        panelPage.clickPanelCancelBtn();
+
+        dataProfilesPage.deleteAllDataProfileCreated();
+    }
+
+
 }

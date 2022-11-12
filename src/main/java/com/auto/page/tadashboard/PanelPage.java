@@ -2,8 +2,11 @@ package com.auto.page.tadashboard;
 
 import com.auto.model.Panel;
 import com.auto.utils.WebDriverUltis;
+import com.google.common.collect.Ordering;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PanelPage extends GeneralPage {
     private final Element addNewLnk = new Element("//a[@href=\"javascript:Dashboard.openAddPanel('');\"]");
@@ -11,6 +14,8 @@ public class PanelPage extends GeneralPage {
     private final Element checkAllLnk = new Element("//a[@href=\"javascript:Dashboard.doCheckAll(true,'chkDelPanel');\"]");
     private final Element editPanelLnk = new Element("//td/a[text()='%s']//ancestor::tr//a[text()='Edit']");
     private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
+    private final Element settingForm = new Element("//div[@id='tdSettings']//legend[text()='%s']");
+    private final Element panelCancelBtn = new Element("//input[@id='Cancel']");
 
     public void clickAddNewLink() {
         addNewLnk.click();
@@ -18,6 +23,10 @@ public class PanelPage extends GeneralPage {
 
     public void clickPanelOKButton() {
         panelOKBtn.click();
+    }
+
+    public void clickPanelCancelBtn() {
+        panelCancelBtn.click();
     }
 
     public void deleteAllPanels() {
@@ -196,5 +205,38 @@ public class PanelPage extends GeneralPage {
         clickOKButton();
     }
 
+    @Step
+    public boolean doesSettingFormDisplay(String value) {
+        settingForm.set(value);
+        return settingForm.isDisplayed();
+    }
+
+    @Step
+    public boolean doesDataProfileListDisplaysAlphabeticalOrder() {
+        ArrayList<String> listOfSelection = new ArrayList<>();
+        try {
+            List<String> listSelection = panelDataProfileDrl.getOptions();
+
+            for (String temp : listSelection) {
+                listOfSelection.add(temp);
+            }
+            return Ordering.natural().isOrdered(listOfSelection);
+        } catch (Exception e) {
+            System.out.printf("Can't find Dropdown list");
+            return false;
+        }
+    }
+
+    @Step
+    public boolean doesDataProfileContainIntoDrl(String value) {
+        try {
+            List<String> listSelection = panelDataProfileDrl.getOptions();
+            return listSelection.contains(value);
+
+        } catch (Exception e) {
+            System.out.printf("Can't find" + value + " Dropdown list");
+            return false;
+        }
+    }
 }
 

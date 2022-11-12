@@ -8,6 +8,10 @@ import static com.auto.utils.WebDriverUltis.waitForAlertDisplays;
 import static com.logigear.statics.Selaium.driver;
 
 public class GeneralPage {
+    private final Element administerLnk = new Element("//a[@href='#Administer']");
+    private final Element panelLnk = new Element("//a[@href='panels.jsp']");
+    private final Element dataProfilesLnk = new Element("//a[@href='profiles.jsp']");
+
     protected Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard') and text()= '%s']");
     protected Element choosePanelBtn = new Element("//a[@id='btnChoosepanel']");
     protected Element globalSettingLnk = new Element("//li[@class='mn-setting']/a");
@@ -23,7 +27,7 @@ public class GeneralPage {
     protected Element panelStyle3DRbn = new Element("//input[@id='rdoChartStyle3D']");
     protected Element panelIsShowCb = new Element("//input[@id='chkShowTitle']");
     protected Element panelDataLabelsCb = new Element("//label[contains(text(),'%s')]//input[contains(@name,'chk')]");
-    protected Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and text()='%s']//input[@name='radPanelType']");
+    protected Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and contains(text(),'%s')]//input[@name='radPanelType']");
     protected Element panelLegendsRbn = new Element("//input[@name='radPlacement' and @value='%s']");
     protected Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
 
@@ -34,5 +38,22 @@ public class GeneralPage {
         return alertText.equalsIgnoreCase(text);
     }
 
-   
+    @Step
+    public void clickAdministerLnk() {
+        administerLnk.click();
+    }
+
+    @Step
+    public void clickPanelLnk() {
+        clickAdministerLnk();
+        panelLnk.click();
+    }
+
+    @Step
+    public void clickDataProfilesLnk() {
+        clickAdministerLnk();
+        dataProfilesLnk.click();
+    }
+
+
 }
