@@ -1,19 +1,19 @@
 package com.auto.test;
 
 import com.auto.page.tadashboard.DashboardPage;
-import com.auto.utils.ExecutionContext;
+import com.auto.utils.PropertiesFile;
 import com.logigear.statics.Selaium;
-import com.logigear.utils.ConfigLoader;
 import com.logigear.utils.Configuration;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.*;
-import org.testng.internal.annotations.IBeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
-import static com.auto.utils.Constants.ConfigFiles;
-import static com.auto.utils.Constants.LOADING_TIME;
 import static com.auto.utils.Constants.LOGIN_PAGE_URL;
 import static com.logigear.statics.Selaium.open;
 
@@ -25,7 +25,9 @@ public class TestBase {
     @BeforeClass
     @Parameters("platform")
     public void beforeAll(@Optional String platform) {
-        platform = java.util.Optional.ofNullable(platform).orElse("chrome");
+        PropertiesFile data = new  PropertiesFile();
+        data.getProperties();
+        platform = java.util.Optional.ofNullable(platform).orElse(data.getPropertyValue("browser"));
         log.info("Running test on {}", platform);
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
@@ -36,17 +38,20 @@ public class TestBase {
         config.setStartMaximized(true);
         config.setCapabilities(options);
         Selaium.setConfig(config);
+
     }
 
     @BeforeMethod
-    public void beforeMethod(){
+    public void beforeMethod() {
         open(LOGIN_PAGE_URL);
     }
 
     @AfterMethod
-    public void afterMethod(){
+    public void afterMethod() {
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.logout();
+        if (dashboardPage.doesContentDisplay()) {
+            dashboardPage.logout();
+        } else Selaium.closeWebDriver();
     }
 
     @AfterClass

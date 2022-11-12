@@ -1,10 +1,5 @@
 {
-  "loginInvalidUserNameAndInvalidPassword": [
-    {
-      "text": "Username or password is invalid"
-    }
-  ],
-  "loginValidUserNameAndInvalidPassword": [
+  "invalidUserNamePassword": [
     {
       "text": "Username or password is invalid"
     }
@@ -68,10 +63,6 @@
     {
       "text": "Panel folder is incorrect"
     }
-  ],
-  "panelConfigurationErrorInvalidFolderAlert": [
-    {
-      "text": "Panel folder is incorrect"
-    }
   ]
 }
+

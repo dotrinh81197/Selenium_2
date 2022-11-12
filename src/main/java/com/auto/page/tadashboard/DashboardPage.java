@@ -14,6 +14,7 @@ public class DashboardPage {
     private final Element contentContainer = new Element("//div[@id='ccontent']");
     private final Element administratorLnk = new Element("//a[@href='#Welcome']");
     private final Element logoutLnk = new Element("//a[@href='logout.do']");
+    private final Element repositoryLnk = new Element("//a[@href='#Repository']");
     private final Element globalSettingLnk = new Element("//li[@class='mn-setting']/a");
     private final Element addPageBtn = new Element("//a[contains(@href, 'Dashboard.openAddPageForm')]");
     private final Element newPageDialogTitleLbl = new Element("//div[@id='div_popup']//td[@class='ptc']/h2");
@@ -28,17 +29,33 @@ public class DashboardPage {
     private final Element publicCb = new Element("//input[@id='isprotected']");
     private final Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard') and text()= '%s']");
 
+    public String getRepositoryName() {
+        return repositoryLnk.getText();
+    }
 
     //Methods
+    @Step("Verify content dashboard display")
     public boolean doesContentDisplay() {
         return contentContainer.isDisplayed();
+    }
+
+    @Step("Select repository")
+    public void selectRepository(String repositoryName) {
+        repositoryLnk.click();
+        repositoryLnk.set(repositoryName);
+        repositoryLnk.click();
+    }
+
+    @Step("Verify repository name display")
+    public boolean doesRepositoryNameDisplay(String repositoryName) {
+        return getRepositoryName().equalsIgnoreCase(repositoryName);
     }
 
     @Step("Logout dashboard page")
     public void logout() {
         administratorLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
         administratorLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
-        administratorLnk.click();
+       administratorLnk.click();
         logoutLnk.click();
     }
 
