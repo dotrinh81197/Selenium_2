@@ -1,13 +1,10 @@
 package com.auto.page.tadashboard;
 
 import com.auto.model.User;
+import com.auto.utils.Element;
 import com.auto.utils.WebDriverUltis;
-import com.logigear.element.Element;
-import io.qameta.allure.Step;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+import io.qameta.allure.Step;
 
 import static com.logigear.statics.Selaium.driver;
 

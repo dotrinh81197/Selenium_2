@@ -1,7 +1,6 @@
 package com.auto.utils;
 
 import com.logigear.Modal;
-import com.logigear.element.Element;
 
 import static com.logigear.statics.Selaium.driver;
 

@@ -2,9 +2,10 @@ package com.auto.page.tadashboard;
 
 import com.auto.model.Page;
 import com.auto.utils.Constants;
+import com.auto.utils.Element;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
-import com.logigear.element.Element;
+
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
@@ -53,7 +54,6 @@ public class DashboardPage {
 
     @Step("Logout dashboard page")
     public void logout() {
-        administratorLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
         administratorLnk.click();
         logoutLnk.click();
     }
@@ -70,8 +70,6 @@ public class DashboardPage {
 
     @Step("Click on Global Setting link")
     public void hoverGlobalSettingLnk() {
-        globalSettingLnk.waitForVisible(Constants.WAIT_TIME_DURATION);
-        globalSettingLnk.waitForClickable(Constants.WAIT_TIME_DURATION);
         globalSettingLnk.hover();
     }
 
@@ -82,7 +80,6 @@ public class DashboardPage {
 
     @Step("Enter Page name text box")
     public void enterPageNameTxt(String value) {
-        pageNameTxt.waitForVisible();
         pageNameTxt.enter(value);
     }
 
@@ -108,21 +105,13 @@ public class DashboardPage {
 
     @Step("Click on OK button")
     public void clickOKBtn() {
-        OKBtn.waitForVisible();
         OKBtn.click();
     }
 
     @Step
     public void clickCancelBtn() {
-        cancelBtn.waitForVisible();
         cancelBtn.click();
     }
-
-    @Step("Click on Global Setting link")
-    public String getPageNameTxt(Element element) {
-        return element.getText();
-    }
-
 
     @Step("Check new page display beside a page")
     public boolean doesNewPageDisplayBeside(String newPageName, String besidePageName) {
@@ -175,16 +164,12 @@ public class DashboardPage {
     @Step("Click Delete button")
     public void clickDeletePageBtn() {
         hoverGlobalSettingLnk();
-        deletePageBtn.waitForVisible();
-        deletePageBtn.waitForClickable();
         deletePageBtn.click();
     }
 
     @Step("Click Add Page button")
     public void clickAddPageBtn() {
         hoverGlobalSettingLnk();
-        addPageBtn.waitForVisible();
-        addPageBtn.waitForClickable();
         addPageBtn.click();
     }
 
@@ -192,7 +177,6 @@ public class DashboardPage {
     public void clickEditPage() {
         WebDriverUltis.waitForPageLoad();
         hoverGlobalSettingLnk();
-        editPageBtn.waitForClickable();
         editPageBtn.click();
     }
 
