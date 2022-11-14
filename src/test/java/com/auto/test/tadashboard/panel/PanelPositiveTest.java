@@ -15,6 +15,8 @@ import com.auto.utils.WebDriverUltis;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Hashtable;
 
 public class PanelPositiveTest extends TestBase {
@@ -166,7 +168,6 @@ public class PanelPositiveTest extends TestBase {
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.clickPanelLnk();
 
-        dashboardPage.clickPanelLnk();
         PanelPage panelPage = new PanelPage();
         Panel invalidPanel = new Panel("panelInvalidDisplayName");
         panelPage.createNewPanel(invalidPanel);
@@ -184,6 +185,19 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(panelPage.doesPanelDisplays(validPanel));
 
         panelPage.deleteAllPanels();
+
+    }
+
+    @Test(description = "Verify that all chart types ( Pie, Single Bar, Stacked Bar, Group Bar, Line ) are listed correctly under Chart Type dropped down menu")
+    public void DA_PANEL_TC036_All_chart_types_Pie_Single_Bar_Stacked_Bar_Group_Bar_Line_are_listed_correctly_under_Chart_Type_dropped_down_menu() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.clickPanelLnk();
+        WebDriverUltis.waitForPageLoad();
+        PanelPage panelPage = new PanelPage();
+        panelPage.clickAddNewLink();
+        ArrayList<String> chartTypeList = new ArrayList<String>(Arrays.asList("Pie", "Single Bar", "Stacked Bar", "Group Bar", "Line"));
+        softAssert.assertEquals(panelPage.getChartTypeList(), chartTypeList);
 
     }
 

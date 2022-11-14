@@ -238,5 +238,12 @@ public class PanelPage extends GeneralPage {
             return false;
         }
     }
+
+
+    @Step
+    public ArrayList<String> getChartTypeList() {
+        return (ArrayList<String>) panelChartTypeDrl.getOptions();
+    }
+
 }
 
