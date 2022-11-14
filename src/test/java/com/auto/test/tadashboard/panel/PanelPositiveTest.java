@@ -10,8 +10,8 @@ import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
 import com.auto.utils.JsonUtils;
+import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -158,6 +158,33 @@ public class PanelPositiveTest extends TestBase {
         panelPage.clickPanelCancelBtn();
 
         dataProfilesPage.deleteAllDataProfileCreated();
+    }
+
+    @Test(description = "Verify that no special character except '@' character is allowed to be inputted into Chart Title field")
+    public void DA_PANEL_TC035_No_Special_Character_Except_At_Character_Is_Allowed_Into_Chart_Title_Field() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.clickPanelLnk();
+
+        dashboardPage.clickPanelLnk();
+        PanelPage panelPage = new PanelPage();
+        Panel invalidPanel = new Panel("panelInvalidDisplayName");
+        panelPage.createNewPanel(invalidPanel);
+
+        AlertMessage alertMessage = new AlertMessage("panelDisplayNameIsNotValid");
+        String actualAlertMessage = Utilities.getAlertMessage();
+        String expectedMessage = alertMessage.getAlertText();
+        softAssert.assertEquals(actualAlertMessage, expectedMessage, "Verify alert message " + expectedMessage + "display");
+
+        WebDriverUltis.acceptAlert();
+        panelPage.clickAddNewLink();
+        Panel validPanel = new Panel("panelValidDisplayName");
+        panelPage.createNewPanel(validPanel);
+        WebDriverUltis.waitForPageLoad();
+        softAssert.assertTrue(panelPage.doesPanelDisplays(validPanel));
+
+        panelPage.deleteAllPanels();
+
     }
 
 
