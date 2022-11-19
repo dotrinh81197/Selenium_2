@@ -12,7 +12,7 @@ public class Constants {
     public static final String ACCOUNT = "account";
     public static final String JIRA = "jira";
     public static final String TEST_RAIL = "testrail";
-    public static final String LOGIN_PAGE_URL = "http://localhost:54000/TADashboard/login.jsp";
+    public static final String LOGIN_PAGE_URL = "http://localhost/TADashboard/login.jsp";
     public static final String VALID_USERNAME = "administrator";
     public static final String VALID_PASSWORD = "";
     public static final String INVALID_USERNAME_PASSWORD = "Username or password is invalid";

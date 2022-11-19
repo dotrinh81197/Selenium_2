@@ -1,13 +1,4 @@
 {
-  "simplePage": [
-    {
-      "pageName": "TestPage",
-      "parentPage": "",
-      "numberOfColumns": "",
-      "displayAfter": "",
-      "isPublic": ""
-    }
-  ],
   "simplePageAfterTestPagePage": [
     {
       "pageName": "NewPage",

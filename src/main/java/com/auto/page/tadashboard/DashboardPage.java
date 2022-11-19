@@ -29,6 +29,7 @@ public class DashboardPage {
     private final Element displayAfterDrl = new Element("//select[@id='afterpage']");
     private final Element publicCb = new Element("//input[@id='isprotected']");
     private final Element pageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard') and text()= '%s']");
+    private final List<WebElement> listPageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]").elements();
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -88,9 +89,23 @@ public class DashboardPage {
         pageParentDrl.select(value);
     }
 
+    @Step("Select Parent Page dropdown list")
+    public void selectParentPageDrl(Page page) {
+        if (!page.getParentPage().equalsIgnoreCase("")) {
+            selectParentPageDrl(page.getParentPage());
+        }
+    }
+
     @Step("Select Number of columns dropdown list")
     public void selectNumberOfColumnsDrl(String value) {
         numberColumnsDrl.select(value);
+    }
+
+    @Step("Select Number of columns dropdown list")
+    public void selectNumberOfColumnsDrl(Page page) {
+        if (!page.getNumberOfColumns().equalsIgnoreCase("")) {
+            selectNumberOfColumnsDrl(page.getNumberOfColumns());
+        }
     }
 
     @Step("Select Display after dropdown list")
@@ -98,9 +113,23 @@ public class DashboardPage {
         displayAfterDrl.select(value);
     }
 
+    @Step("Select Display after dropdown list")
+    public void selectDisplayAfterDrl(Page page) {
+        if (!page.getDisplayAfter().equalsIgnoreCase("")) {
+            selectDisplayAfterDrl(page.getDisplayAfter());
+        }
+    }
+
     @Step("Select the public checkbox")
     public void selectPublicCb() {
         publicCb.click();
+    }
+
+    @Step("Select the public checkbox")
+    public void selectPublicCb(Page page) {
+        if (page.getIsPublic().equalsIgnoreCase("true")) {
+            selectPublicCb();
+        }
     }
 
     @Step("Click on OK button")
@@ -115,13 +144,11 @@ public class DashboardPage {
 
     @Step("Check new page display beside a page")
     public boolean doesNewPageDisplayBeside(String newPageName, String besidePageName) {
-        List<WebElement> pageList = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]").elements();
-
-        Integer pageNumber = pageList.size();
+        Integer pageNumber = listPageLnk.size();
 
         for (int i = 0; i < pageNumber; i++) {
-            if (pageList.get(i).getText().equalsIgnoreCase(besidePageName)) {
-                if (pageList.get(i + 1).getText().equalsIgnoreCase(newPageName)) {
+            if (listPageLnk.get(i).getText().equalsIgnoreCase(besidePageName)) {
+                if (listPageLnk.get(i + 1).getText().equalsIgnoreCase(newPageName)) {
                     return true;
                 }
             }
@@ -185,19 +212,10 @@ public class DashboardPage {
     public void createNewPage(Page page) {
         clickAddPageBtn();
         enterPageNameTxt(page.getPageName());
-        if (!page.getParentPage().equalsIgnoreCase("")) {
-            selectParentPageDrl(page.getParentPage());
-        }
-        if (!page.getNumberOfColumns().equalsIgnoreCase("")) {
-            selectNumberOfColumnsDrl(page.getNumberOfColumns());
-        }
-        if (!page.getDisplayAfter().equalsIgnoreCase("")) {
-            selectDisplayAfterDrl(page.getDisplayAfter());
-        }
-        if (page.getIsPublic().equalsIgnoreCase("true")) {
-            selectPublicCb();
-        }
-
+        selectParentPageDrl(page);
+        selectNumberOfColumnsDrl(page);
+        selectDisplayAfterDrl(page);
+        selectPublicCb(page);
         clickOKBtn();
     }
 
@@ -253,11 +271,9 @@ public class DashboardPage {
     @Step
     public boolean doesNewPageDisplay(Page page) {
         WebDriverUltis.waitForPageLoad();
-        List<WebElement> pageList = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]").elements();
-        Integer pageNumber = pageList.size();
-
+        Integer pageNumber = listPageLnk.size();
         for (int i = 0; i < pageNumber; i++) {
-            if (pageList.get(i).getText().equalsIgnoreCase(page.getPageName())) {
+            if (listPageLnk.get(i).getText().equalsIgnoreCase(page.getPageName())) {
                 return true;
             }
         }

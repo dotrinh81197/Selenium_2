@@ -19,7 +19,6 @@ public class DashboardPositiveTest extends TestBase {
     LoginPage loginPage = new LoginPage();
     SoftAssert softAssert = new SoftAssert();
 
-
     @Test(description = "Verify that user is able to add additional pages besides Overview page successfully")
     public void DA_MP_TC012_User_is_able_to_add_additional_pages_besides_Overview_page_successfully() throws InterruptedException {
 
@@ -28,7 +27,7 @@ public class DashboardPositiveTest extends TestBase {
         DashboardPage dashboardPage = new DashboardPage();
         softAssert.assertTrue(dashboardPage.doesContentDisplay());
 
-        Page newPage = new Page("simplePage");
+        Page newPage = new Page();
         dashboardPage.createNewPage(newPage);
 
         WebDriverUltis.waitForPageLoad();
@@ -49,7 +48,7 @@ public class DashboardPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesContentDisplay());
 
         // Add Test Page
-        Page newPage = new Page("simplePage");
+        Page newPage = new Page();
         dashboardPage.createNewPage(newPage);
         WebDriverUltis.waitForPageLoad();
         //Add another Test page
@@ -65,7 +64,7 @@ public class DashboardPositiveTest extends TestBase {
 
     }
 
-    @Test(description = "Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children page under it")
+    @Test(description = "Verify that user can remove any main parent page except 'Overview' page successfully and the order of pages stays persistent as long as there is not children page under it")
     public void DA_MP_TC017_User_can_remove_any_Main_parent_page_except_Overview_page_and_the_order_of_pages_stay_persistent_is_not_children_page() {
 
         loginPage.login(user);
@@ -232,7 +231,7 @@ public class DashboardPositiveTest extends TestBase {
         dashboardPage.removePage(page1.getPageName());
     }
 
-    @Test(description = "Verify that \"Bread Crums\" navigation is correct")
+    @Test(description = "Verify that 'Bread Crums' navigation is correct")
     public void DA_MP_TC024_Bread_Crums_navigation_correctly() {
 
         loginPage.login(user);
@@ -257,15 +256,14 @@ public class DashboardPositiveTest extends TestBase {
         dashboardPage.removePage(page1.getPageName());
     }
 
-    @Test(description = "Verify that page listing is correct when user edit \"Display After\"  field of a specific page")
+    @Test(description = "Verify that page listing is correct when user edit 'Display After'  field of a specific page")
     public void DA_MP_TC025_Page_listing_is_correct_when_user_edit_Display_After_field_of_a_specific_page() {
-
 
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
         Page overviewPage = new Page("overviewPage");
-        Page page1 = new Page("simplePage");
+        Page page1 = new Page();
         Page page2 = new Page("parentPage");
         dashboardPage.createNewPage(page1);
         WebDriverUltis.waitForPageLoad();
