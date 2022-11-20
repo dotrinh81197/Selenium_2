@@ -1,0 +1,19 @@
+{
+  "legends": [
+    {
+      "legendType": "None"
+    },
+    {
+      "legendType": "Top"
+    },
+    {
+      "legendType": "Right"
+    },
+    {
+      "legendType": "Bottom"
+    },
+    {
+      "legendType": "Left"
+    }
+  ]
+}

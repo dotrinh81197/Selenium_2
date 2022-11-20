@@ -21,6 +21,7 @@ public class Page {
         this.numberOfColumns = "";
         this.displayAfter = "";
         this.isPublic = "";
+
     }
 
     public Page(String pageName, String displayAfter) {

@@ -103,12 +103,64 @@ public class JsonUtils {
 
     @DataProvider
     public Object[][] getDataItemPanelAvailable() {
-        Object[][] data ;
+        Object[][] data;
         String DataFilePath = "src/test/resources/data/availableItemPanel.json";
         JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
 
         JsonObject itemList = object.getAsJsonObject();
         JsonArray jsonArray = itemList.getAsJsonArray("listItemPanelAvailable");
+        data = jsonArrayToObjectArray(jsonArray);
+
+        return data;
+    }
+
+    @DataProvider
+    public Object[][] getDataChartType() {
+        Object[][] data;
+        String DataFilePath = "src/test/resources/data/chartTypePanel.json";
+        JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
+
+        JsonObject itemList = object.getAsJsonObject();
+        JsonArray jsonArray = itemList.getAsJsonArray("chartType");
+        data = jsonArrayToObjectArray(jsonArray);
+
+        return data;
+    }
+
+    @DataProvider
+    public Object[][] getDataLabels() {
+        Object[][] data;
+        String DataFilePath = "src/test/resources/data/dataLabels.json";
+        JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
+
+        JsonObject itemList = object.getAsJsonObject();
+        JsonArray jsonArray = itemList.getAsJsonArray("dataLabels");
+        data = jsonArrayToObjectArray(jsonArray);
+
+        return data;
+    }
+
+    @DataProvider
+    public Object[][] getDataLabelsType() {
+        Object[][] data;
+        String DataFilePath = "src/test/resources/data/dataLabels.json";
+        JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
+
+        JsonObject itemList = object.getAsJsonObject();
+        JsonArray jsonArray = itemList.getAsJsonArray("dataLabelCbType");
+        data = jsonArrayToObjectArray(jsonArray);
+
+        return data;
+    }
+
+    @DataProvider
+    public Object[][] getLegendType() {
+        Object[][] data;
+        String DataFilePath = "src/test/resources/data/panelLegends.json";
+        JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
+
+        JsonObject itemList = object.getAsJsonObject();
+        JsonArray jsonArray = itemList.getAsJsonArray("legends");
         data = jsonArrayToObjectArray(jsonArray);
 
         return data;

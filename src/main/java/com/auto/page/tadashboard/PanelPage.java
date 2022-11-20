@@ -1,5 +1,6 @@
 package com.auto.page.tadashboard;
 
+import com.auto.model.Page;
 import com.auto.model.Panel;
 import com.auto.utils.WebDriverUltis;
 import com.google.common.collect.Ordering;
@@ -17,6 +18,7 @@ public class PanelPage extends GeneralPage {
     private final Element settingForm = new Element("//div[@id='tdSettings']//legend[text()='%s']");
     private final Element panelCancelBtn = new Element("//input[@id='Cancel']");
 
+
     public void clickAddNewLink() {
         addNewLnk.click();
     }
@@ -33,6 +35,7 @@ public class PanelPage extends GeneralPage {
         checkAllLnk.click();
         deleteCheckedLnk.click();
         WebDriverUltis.acceptAlert();
+        WebDriverUltis.waitForPageLoad();
     }
 
     public void clickEditPanel(Panel panel) {
@@ -244,6 +247,7 @@ public class PanelPage extends GeneralPage {
     public ArrayList<String> getChartTypeList() {
         return (ArrayList<String>) panelChartTypeDrl.getOptions();
     }
+
 
 }
 

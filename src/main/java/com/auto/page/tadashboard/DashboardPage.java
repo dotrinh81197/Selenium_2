@@ -8,9 +8,9 @@ import com.logigear.statics.Selaium;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import com.auto.model.Panel;
-import com.auto.utils.Constants;
 
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -35,7 +35,9 @@ public class DashboardPage {
     private final Element listPageLnk = new Element("//div[@id='main-menu']//a[contains(@href,'/TADashboard')]");
     private final Element pageNoLnk = new Element("(//div[@id='main-menu']//a[contains(@href,'/TADashboard')])[%d]");
     private final Element choosePanelBtn = new Element("//a[@id='btnChoosepanel']");
+    private final Element createNewPanelLnk = new Element("//span[contains(@onclick, 'Dashboard.openAddPanel')]");
     private final Element createPanelLnk = new Element("//a[contains(@onclick, 'Dashboard.openAddPanel')]");
+    private final Element editPanelBtn = new Element("//li[@class='edit']");
 
     private final Element administerLnk = new Element("//a[@href='#Administer']");
     private final Element panelLnk = new Element("//a[@href='panels.jsp']");
@@ -96,6 +98,48 @@ public class DashboardPage {
     public void logout() {
         administratorLnk.click();
         logoutLnk.click();
+    }
+
+    @Step
+    public void clickChoosePanelBtn() {
+        choosePanelBtn.click();
+    }
+
+    @Step
+    public void clickCreateNewPanelBtn() {
+        createNewPanelLnk.click();
+    }
+
+    @Step
+    public void clickCreatePanelBtn() {
+        createPanelLnk.click();
+    }
+
+    @Step
+    public void clickEditPanelBtn() {
+        editPanelBtn.click();
+    }
+
+
+    @Step
+    public void clickAdministerLnk() {
+        administerLnk.click();
+    }
+
+    @Step
+    public void clickDataProfilesLnk() {
+        clickAdministerLnk();
+        dataProfilesLnk.click();
+    }
+
+    @Step
+    public void clickPanelConfigurationOKBtn() {
+        panelConfigurationOKBtn.click();
+    }
+
+    @Step
+    public void clickPanelConfigurationCancelBtn() {
+        panelConfigurationCancelBtn.click();
     }
 
     @Step("Check Global Setting link unclickable")
@@ -207,6 +251,17 @@ public class DashboardPage {
         clickOnPage(pageName);
         clickDeletePageBtn();
         WebDriverUltis.acceptAlert();
+        WebDriverUltis.waitForPageLoad();
+    }
+
+    @Step("Remove page")
+    public void removePage(ArrayList pageList) {
+        for (int i = 0; i < pageList.size(); i++) {
+            clickOnPage(pageList.get(i).toString());
+            clickDeletePageBtn();
+            WebDriverUltis.acceptAlert();
+            WebDriverUltis.waitForPageLoad();
+        }
     }
 
     @Step("Remove page")
@@ -284,6 +339,14 @@ public class DashboardPage {
         clickAddPageBtn();
         enterPageNameTxt(pageName);
         clickOKBtn();
+        WebDriverUltis.waitForPageLoad();
+    }
+
+    @Step("Remove Children Page")
+    public void removeChildrenPage(Page childrenPage, Page parentPage) {
+        clickOnChildrenPage(childrenPage, parentPage);
+        clickDeletePageBtn();
+        WebDriverUltis.acceptAlert();
     }
 
     @Step("Create a new page")
@@ -356,17 +419,6 @@ public class DashboardPage {
        return WebDriverUltis.getCurrentTitlePage().contains(pageName);
     }
 
-
-    @Step
-    public void clickChoosePanelBtn() {
-        choosePanelBtn.click();
-    }
-
-    @Step
-    public void clickCreatePanelBtn() {
-        createPanelLnk.click();
-    }
-
     @Step
     public void clickPanelOkBtn() {
         panelOKBtn.click();
@@ -378,26 +430,9 @@ public class DashboardPage {
     }
 
     @Step
-    public void clickAdministerLnk() {
-        administerLnk.click();
-    }
-
-    @Step
     public void clickPanelLnk() {
         clickAdministerLnk();
         panelLnk.click();
-    }
-
-    @Step
-    public void clickDataProfilesLnk() {
-        clickAdministerLnk();
-        dataProfilesLnk.click();
-    }
-
-    @Step
-    public void clickPanelConfigurationOKBtn() {
-        clickAdministerLnk();
-        panelConfigurationOKBtn.click();
     }
 
     @Step

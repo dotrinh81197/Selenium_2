@@ -3,6 +3,7 @@ package com.auto.test;
 import com.auto.page.tadashboard.DashboardPage;
 import com.auto.utils.PropertiesFile;
 import com.auto.utils.Utilities;
+import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
 import com.logigear.utils.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -54,6 +55,7 @@ public class TestBase {
     @BeforeMethod
     public void beforeMethod() {
         open(LOGIN_PAGE_URL);
+        WebDriverUltis.waitForPageLoad();
     }
 
     @AfterMethod
@@ -63,6 +65,7 @@ public class TestBase {
             dashboardPage.removeAllPage();
             dashboardPage.logout();
         } else Selaium.closeWebDriver();
+
     }
 
     @AfterClass

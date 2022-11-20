@@ -1,7 +1,6 @@
 package com.auto.test.tadashboard.panel;
 
 import com.auto.model.AlertMessage;
-import com.auto.model.Page;
 import com.auto.model.Panel;
 import com.auto.model.User;
 import com.auto.page.tadashboard.DashboardPage;
@@ -9,11 +8,8 @@ import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
 import com.auto.utils.WebDriverUltis;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import static com.auto.utils.Constants.INVALID_USERNAME_PASSWORD;
 
 public class PanelNegativeTest extends TestBase {
 
@@ -26,7 +22,7 @@ public class PanelNegativeTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
@@ -43,7 +39,7 @@ public class PanelNegativeTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();

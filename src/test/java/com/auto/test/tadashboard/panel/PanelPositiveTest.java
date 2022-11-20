@@ -28,17 +28,19 @@ public class PanelPositiveTest extends TestBase {
 
     @Test(dataProvider = "getDataItemPanelAvailable", dataProviderClass = JsonUtils.class, description = "Verify that when Choose panels form is expanded all pre-set panels are populated and sorted correctly")
     public void DA_PANEL_TC027_Choose_Panel_form_expanded_all_pre_set_and_sorted_correctly(Hashtable<String, String> data) {
-        System.out.println(data.get("ItemNumber16"));
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page newPage = new Page();
         dashboardPage.createNewPage(newPage);
-        Panel validDisplayNamePanel = new Panel();
+        Panel validDisplayNamePanel = new Panel("panelValidDisplayName");
+        dashboardPage.hoverGlobalSettingLnk();
+        dashboardPage.clickCreatePanelBtn();
         dashboardPage.createNewPanel(validDisplayNamePanel);
         dashboardPage.clickPanelConfigurationOKBtn();
         dashboardPage.clickChoosePanelBtn();
 
         softAssert.assertTrue(dashboardPage.doesItemDisplayCorrectly(data));
+        dashboardPage.removePage(newPage.getPageName());
 
 
     }
@@ -48,7 +50,7 @@ public class PanelPositiveTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
@@ -65,7 +67,7 @@ public class PanelPositiveTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
@@ -82,7 +84,7 @@ public class PanelPositiveTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
@@ -93,6 +95,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.doesAlertTextDisplay(alertMessage.getText());
 
         WebDriverUltis.acceptAlert();
+        panelPage.closePanelModal();
         panelPage.clickAddNewLink();
         Panel panel = new Panel("panelValidDisplayName");
         panelPage.createNewPanel(panel);
@@ -107,14 +110,14 @@ public class PanelPositiveTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
         softAssert.assertFalse(panelPage.doesSettingFormDisplay("Chart Settings"));
-        panelPage.clickPanelTypeRhn("Indicator");
+        panelPage.selectPanelTypeRbn("Indicator");
         softAssert.assertFalse(panelPage.doesSettingFormDisplay("Indicator Settings"));
-        panelPage.clickPanelTypeRhn("Heat Map");
+        panelPage.selectPanelTypeRbn("Heat Map");
         softAssert.assertFalse(panelPage.doesSettingFormDisplay("Heat Map Settings"));
 
     }
@@ -124,7 +127,7 @@ public class PanelPositiveTest extends TestBase {
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
@@ -150,7 +153,7 @@ public class PanelPositiveTest extends TestBase {
         dataProfilesPage.createDataProfile(dataProfileName);
         WebDriverUltis.waitForPageLoad();
 
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
 
@@ -166,7 +169,7 @@ public class PanelPositiveTest extends TestBase {
     public void DA_PANEL_TC035_No_Special_Character_Except_At_Character_Is_Allowed_Into_Chart_Title_Field() {
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         Panel invalidPanel = new Panel("panelInvalidDisplayName");
@@ -192,12 +195,173 @@ public class PanelPositiveTest extends TestBase {
     public void DA_PANEL_TC036_All_chart_types_Pie_Single_Bar_Stacked_Bar_Group_Bar_Line_are_listed_correctly_under_Chart_Type_dropped_down_menu() {
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
-        dashboardPage.clickPanelLnk();
+        dashboardPage.gotoPanelPage();
         WebDriverUltis.waitForPageLoad();
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
         ArrayList<String> chartTypeList = new ArrayList<String>(Arrays.asList("Pie", "Single Bar", "Stacked Bar", "Group Bar", "Line"));
         softAssert.assertEquals(panelPage.getChartTypeList(), chartTypeList);
+
+    }
+
+    @Test(description = "Verify that Category, Series and Caption field are enabled and disabled correctly corresponding to each type of the Chart Type", dataProviderClass = JsonUtils.class, dataProvider = "getDataChartType")
+    public void DA_PANEL_TC037_Category_Series_Caption_Field_Enabled_Disabled_Correctly_To_Each_Chart_Type(Hashtable<String, String> data) {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page validPage = new Page();
+        dashboardPage.createNewPage(validPage);
+        WebDriverUltis.waitForPageLoad();
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+
+        dashboardPage.selectChartTypeDrl(data.get("ChartType"));
+
+        softAssert.assertEquals(dashboardPage.doesCategoriesDisable(), data.get("CategoryFieldDisable"));
+        softAssert.assertEquals(dashboardPage.doesSeriesDisable(), data.get("SeriesFieldDisable"));
+        softAssert.assertEquals(dashboardPage.doesCategoriesCaptionDisable(), data.get("CategoryCaptionFieldDisable"));
+        softAssert.assertEquals(dashboardPage.doesSeriesCaptionDisable(), data.get("SeriesCaptionFieldDisable"));
+
+        dashboardPage.closePanelModal();
+        dashboardPage.removePage(validPage.getPageName());
+
+    }
+
+    @Test(description = "Verify that all settings within Add New Panel and Edit Panel form stay unchanged when user switches between 2D and 3D radio buttons")
+    public void DA_PANEL_TC038_All_Setting_Add_New_Panel_And_Edit_Panel_Stay_Unchanged_When_Switches_Between_2D_3D() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page validPage = new Page();
+        dashboardPage.createNewPage(validPage);
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        WebDriverUltis.waitForPageLoad();
+        Panel panel3D = new Panel("panel3D");
+        dashboardPage.fillPanelInfo(panel3D);
+
+        softAssert.assertTrue(dashboardPage.doesChartTypeUnChanges(panel3D.getChartType()));
+        softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
+        softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
+        softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
+        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
+
+        dashboardPage.clickStyle2DRbn();
+        softAssert.assertTrue(dashboardPage.doesChartTypeUnChanges(panel3D.getChartType()));
+        softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
+        softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
+        softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
+        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
+
+        dashboardPage.clickOKButton();
+        dashboardPage.selectPagePanelConfig(validPage.getPageName());
+        dashboardPage.clickPanelConfigurationOKBtn();
+        dashboardPage.clickEditPanelBtn();
+
+        softAssert.assertTrue(dashboardPage.doesChartTypeUnChanges(panel3D.getChartType()));
+        softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
+        softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
+        softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
+        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
+
+        dashboardPage.closePanelModal();
+        dashboardPage.removePage(validPage.getPageName());
+        WebDriverUltis.waitForPageLoad();
+        dashboardPage.gotoPanelPage();
+        PanelPage panelPage = new PanelPage();
+        panelPage.deleteAllPanels();
+
+    }
+
+    @Test(dataProvider = "getLegendType", dataProviderClass = JsonUtils.class, description = "Verify that all settings within 'Add New Panel' and 'Edit Panel' form stay unchanged when user switches between 'Legends' radio buttons")
+    public void DA_PANEL_TC039_All_Setting_Form_Stay_Unchanged_When_Switch_Legends(Hashtable<String, String> data) {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.gotoPanelPage();
+        PanelPage panelPage = new PanelPage();
+
+        panelPage.clickAddNewLink();
+        panelPage.selectLegendRbn(data.get("legendType"));
+
+        Panel defaultPanel = new Panel();
+        panelPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel);
+
+        panelPage.closePanelModal();
+
+        Panel panel = new Panel("panelValidDisplayName");
+        panelPage.clickAddNewLink();
+        panelPage.createNewPanel(panel);
+
+        panelPage.clickEditPanel(panel);
+        panelPage.selectLegendRbn(data.get("legendType"));
+        panelPage.doesPanelFormDisplayUnchanged(panel);
+        panelPage.closePanelModal();
+        panelPage.deleteAllPanels();
+
+    }
+
+    @Test(dataProvider = "getDataLabels", dataProviderClass = JsonUtils.class, description = "Verify that all 'Data Labels' check boxes are enabled and disabled correctly corresponding to each type of 'Chart Type'")
+    public void DA_PANEL_TC040_Data_Labels_Display_Correctly(Hashtable<String, String> data) {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page validPage = new Page();
+        dashboardPage.createNewPage(validPage);
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        WebDriverUltis.waitForPageLoad();
+
+        dashboardPage.selectChartTypeDrl(data.get("ChartType"));
+        softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Series"), data.get("DataLabelSeriesDisable"));
+        softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Categories"), data.get("DataLabelCategoriesDisable"));
+        softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Value"), data.get("DataLabelValueDisable"));
+        softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Percentage"), data.get("DataLabelPercentageDisable"));
+
+        dashboardPage.closePanelModal();
+        dashboardPage.removePage(validPage.getPageName());
+
+    }
+
+    @Test(dataProvider = "getDataLabelsType", dataProviderClass = JsonUtils.class, description = "Verify that all 'Data Labels' check boxes are enabled and disabled correctly corresponding to each type of 'Chart Type'")
+    public void DA_PANEL_TC041_Data_Labels_Display_Correctly(Hashtable<String, String> data) {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+
+        dashboardPage.gotoPanelPage();
+        PanelPage panelPage = new PanelPage();
+        panelPage.clickAddNewLink();
+        WebDriverUltis.waitForPageLoad();
+        Panel defaultPanel = new Panel();
+        panelPage.selectPanelDataLabelCb(data.get("dataLabelType"));
+        softAssert.assertTrue(dashboardPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel));
+        dashboardPage.selectPanelDataLabelCb(data.get("dataLabelType"));
+
+        dashboardPage.closePanelModal();
+
+    }
+
+    @Test(description = "Verify that all pages are listed correctly under the Select page dropped down menu of Panel Configuration form/ control")
+    public void DA_PANEL_TC042_All_pages_are_listed_correctly_under_the_Select_page_dropped_down_menu_of_Panel_Configuration_form_control() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        String newPage1 = "page1";
+        String newPage2 = "page2";
+        String newPage3 = "page3";
+        dashboardPage.createNewPage(newPage1);
+
+        dashboardPage.createNewPage(newPage2);
+
+        dashboardPage.createNewPage(newPage3);
+
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        Panel panel = new Panel("panelValidDisplayName");
+        dashboardPage.createNewPanel(panel);
+        ArrayList<String> selectPageList = new ArrayList<String>(Arrays.asList(newPage1, newPage2, newPage3));
+        softAssert.assertEquals(dashboardPage.getSelectPageList(), selectPageList);
+
+        dashboardPage.clickPanelConfigurationCancelBtn();
+        dashboardPage.removePage(selectPageList);
+        dashboardPage.gotoPanelPage();
+        PanelPage panelPage = new PanelPage();
+        panelPage.deleteAllPanels();
 
     }
 

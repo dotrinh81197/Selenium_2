@@ -1,6 +1,7 @@
 package com.auto.utils;
 
 import com.logigear.Modal;
+import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 
 import javax.annotation.Nonnull;
@@ -30,6 +31,16 @@ public class Utilities {
             FileUtils.cleanDirectory(folder);
         }
 
+    }
+
+    @Step
+    public static boolean doesElementDisable(Element element) {
+        try {
+            return element.getAttribute("disabled").contains("true");
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 

@@ -18,13 +18,13 @@
   ],
   "panelValidDisplayName": [
     {
-      "type": "",
-      "dataProfile": "",
+      "type": "Chart",
+      "dataProfile": "Action Implementation By Status",
       "displayName": "Logigear@",
       "chartTitle": "",
       "isShowTitle": "",
       "chartType": "",
-      "style": "",
+      "style": "2D",
       "category": "",
       "categoryCaption": "",
       "series": " Name",
