@@ -2,6 +2,7 @@ package com.auto.test;
 
 import com.auto.page.tadashboard.DashboardPage;
 import com.auto.utils.PropertiesFile;
+import com.auto.utils.Utilities;
 import com.logigear.statics.Selaium;
 import com.logigear.utils.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,8 +12,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import java.io.File;
+import java.io.IOException;
 
 import static com.auto.utils.Constants.LOGIN_PAGE_URL;
 import static com.logigear.statics.Selaium.open;
@@ -22,6 +27,11 @@ public class TestBase {
     private static final Logger log = LoggerFactory.getLogger(TestBase.class);
     Configuration config;
 
+    @BeforeSuite
+    public void beforeSuite() throws IOException {
+        Utilities.deleteFiles(new File(System.getProperty("user.dir") + "/allure-results"));
+
+    }
     @BeforeClass
     @Parameters("platform")
     public void beforeAll(@Optional String platform) {
@@ -50,6 +60,7 @@ public class TestBase {
     public void afterMethod() {
         DashboardPage dashboardPage = new DashboardPage();
         if (dashboardPage.doesContentDisplay()) {
+            dashboardPage.removeAllPage();
             dashboardPage.logout();
         } else Selaium.closeWebDriver();
     }

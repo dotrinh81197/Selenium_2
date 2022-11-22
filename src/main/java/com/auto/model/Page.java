@@ -1,8 +1,7 @@
 package com.auto.model;
 
-import com.auto.utils.JsonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.auto.data.enums.Data;
+import com.auto.utils.FakerUtils;
+
 
 import java.util.Hashtable;
 
@@ -17,25 +16,19 @@ public class Page {
     private String isPublic;
 
     public Page() {
-        getPageData("simplePage");
-        this.pageName = data.get("pageName");
-        this.parentPage = data.get("parentPage");
-        this.numberOfColumns = data.get("numberOfColumns");
-        this.displayAfter = data.get("displayAfter");
-        this.isPublic = data.get("isPublic");
+        this.pageName = FakerUtils.word();
+        this.parentPage = "";
+        this.numberOfColumns = "";
+        this.displayAfter = "";
+        this.isPublic = "";
     }
 
-    public Page(String typeOfPage) {
-        getPageData(typeOfPage);
-        this.pageName = data.get("pageName");
-        this.parentPage = data.get("parentPage");
-        this.numberOfColumns = data.get("numberOfColumns");
-        this.displayAfter = data.get("displayAfter");
-        this.isPublic = data.get("isPublic");
-    }
-
-    private static void getPageData(String typeOfPage) {
-        data = JsonUtils.getData(typeOfPage, Data.PAGE);
+    public Page(String pageName, String displayAfter) {
+        this.pageName = pageName;
+        this.parentPage = "";
+        this.numberOfColumns = "";
+        this.displayAfter = displayAfter;
+        this.isPublic = "";
     }
 
 }

@@ -32,7 +32,7 @@ public class PropertiesFile {
         }
     }
 
-    public String getPropertyValue(String key){
+    public static String getPropertyValue(String key){
         return prop.getProperty(key);
     }
 
