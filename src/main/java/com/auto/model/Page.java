@@ -2,7 +2,6 @@ package com.auto.model;
 
 import com.auto.utils.FakerUtils;
 
-
 import java.util.Hashtable;
 
 @lombok.Data

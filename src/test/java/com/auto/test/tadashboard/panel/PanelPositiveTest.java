@@ -9,6 +9,7 @@ import com.auto.page.tadashboard.DataProfilesPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
+import com.auto.utils.FakerUtils;
 import com.auto.utils.JsonUtils;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
@@ -341,9 +342,9 @@ public class PanelPositiveTest extends TestBase {
     public void DA_PANEL_TC042_All_pages_are_listed_correctly_under_the_Select_page_dropped_down_menu_of_Panel_Configuration_form_control() {
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
-        String newPage1 = "page1";
-        String newPage2 = "page2";
-        String newPage3 = "page3";
+        String newPage1 = FakerUtils.word();
+        String newPage2 = FakerUtils.word();
+        String newPage3 = FakerUtils.word();
         dashboardPage.createNewPage(newPage1);
 
         dashboardPage.createNewPage(newPage2);
@@ -365,5 +366,105 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Test(description = "Verify that only integer number inputs from 300-800 are valid for Height field")
+    public void DA_PANEL_TC043_Only_integer_number_inputs_from_300_800_are_valid_for_Height_field() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        String newPage1 = FakerUtils.word();
+        dashboardPage.createNewPage(newPage1);
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickPanelChartsTypeLnk("Action Implementation By Status");
 
+        dashboardPage.enterHeightField("299");
+        AlertMessage errorRangeHeightAlert = new AlertMessage("panelConfigurationErrorRangeHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+
+        dashboardPage.enterHeightField("801");
+        errorRangeHeightAlert = new AlertMessage("panelConfigurationErrorRangeHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+
+        dashboardPage.enterHeightField("-2");
+        errorRangeHeightAlert = new AlertMessage("panelConfigurationErrorRangeHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+
+        dashboardPage.enterHeightField("3.1");
+        errorRangeHeightAlert = new AlertMessage("panelConfigurationErrorRangeHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+        dashboardPage.enterHeightField("a");
+        errorRangeHeightAlert = new AlertMessage("panelConfigurationErrorFormatHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+        dashboardPage.clickPanelConfigurationCancelBtn();
+
+        dashboardPage.removePage(newPage1);
+
+    }
+
+    @Test(description = "Verify that Height field is not allowed to be empty")
+    public void DA_PANEL_TC044_Height_field_is_not_allowed_to_be_empty() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page = new Page();
+        dashboardPage.createNewPage(page);
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickPanelChartsTypeLnk("Action Implementation By Status");
+        dashboardPage.enterHeightField("");
+        WebDriverUltis.waitForAlertDisplays();
+
+        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationErrorEmptyHeightAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+        dashboardPage.clickPanelConfigurationCancelBtn();
+        dashboardPage.removePage(page.getPageName());
+
+    }
+
+    @Test(description = "Verify that Folder field is not allowed to be empty")
+    public void DA_PANEL_TC045_Folder_field_is_not_allowed_to_be_empty() {
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page = new Page();
+        dashboardPage.createNewPage(page);
+        WebDriverUltis.waitForPageLoad();
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickPanelChartsTypeLnk("Action Implementation By Status");
+        dashboardPage.enterFolderField("");
+        WebDriverUltis.waitForAlertDisplays();
+
+        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationErrorEmptyFolderAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+        dashboardPage.clickPanelConfigurationCancelBtn();
+        dashboardPage.removePage(page.getPageName());
+    }
+
+    @Test(description = "Verify that only valid folder path of corresponding item type ( e.g. Actions, Test Modules) are allowed to be entered into Folder field")
+    public void DA_PANEL_TC046_Only_valid_folder_path_of_corresponding_item_type_Actions_Test_Modules_are_allowed_to_be_entered_into_Folder_field() {
+
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page = new Page();
+        dashboardPage.createNewPage(page);
+        WebDriverUltis.waitForPageLoad();
+
+        Panel panel = new Panel("panelValidDisplayName");
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        dashboardPage.createNewPanel(panel);
+
+        dashboardPage.enterFolderField("invalid");
+        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationErrorInvalidFolderAlert");
+        softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
+        WebDriverUltis.acceptAlert();
+
+        dashboardPage.enterFolderField("SampleRepository/Car Rental/Actions");
+        softAssert.assertTrue(dashboardPage.doesPanelDisplays());
+
+        dashboardPage.removePage(page.getPageName());
+
+    }
 }

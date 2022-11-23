@@ -61,7 +61,7 @@ public class DashboardPage {
     private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
     private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
     private final Element panelConfigurationCancelBtn = new Element("//input[@onclick='Dashboard.closePanelConfigurationDlg();']");
-    private final Element panelConfigurationOKBtn = new Element("//input[contains(@onclick,'Dashboard.addPanelToPage')]");
+
     private final Element heightTxt = new Element("//input[@id='txtHeight']");
     private final Element folderTxt = new Element("//input[@id='txtFolder']");
     private final Element panelListLnk = new Element("//div[@class='al_lft']");
@@ -71,6 +71,11 @@ public class DashboardPage {
     private final Element createNewPanelBtn = new Element("//div[@class='cpbutton']//span[@onclick=\"Dashboard.openAddPanel('2f9njff6y9');\"]");
     private final Element hideBtn = new Element("//span[@id='btnHidePanel']");
     private final Element preSetPanelLnk = new Element("//div[@class='pitem']//table//ul//li/a[normalize-space(contains(text(),'%s'))]");
+
+    private final Element morePanelBtn = new Element("//li[@class='more']");
+    private final Element clonePanelBtn = new Element("//li[@class='clone']");
+    private final Element panelChartsTypeLnk = new Element("//div[@class='ptit pchart']//following-sibling::table//a[normalize-space(contains(text(), '%s'))]");
+
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -141,6 +146,13 @@ public class DashboardPage {
     public void clickPanelConfigurationCancelBtn() {
         panelConfigurationCancelBtn.click();
     }
+
+    @Step
+    public void clickPanelChartsTypeLnk(String value) {
+        panelChartsTypeLnk.set(value);
+        panelChartsTypeLnk.click();
+    }
+
 
     @Step("Check Global Setting link unclickable")
     public boolean isGlobalSettingLnkUnClickable() {
@@ -500,6 +512,10 @@ public class DashboardPage {
         return true;
     }
 
+
+    public boolean doesPanelDisplays() {
+        return panelListLnk.isDisplayed();
+    }
 }
 
 

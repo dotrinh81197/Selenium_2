@@ -44,6 +44,10 @@ public class GeneralPage {
     protected Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
     protected Element selectPageDrl = new Element("//select[@id='cbbPages']");
     protected Element dataLabelsCb = new Element("//td[@class='general_vertical_top' and text()='Data Labels']//following-sibling::td//input");
+    protected Element heightTxt = new Element("//input[@id='txtHeight']");
+    protected Element folderTxt = new Element("//input[@id='txtFolder']");
+    protected Element panelConfigurationOKBtn = new Element("//input[contains(@onclick,'Dashboard.addPanelToPage')]");
+
 
 
     @Step("Check Alert text display")
@@ -281,6 +285,18 @@ public class GeneralPage {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Step
+    public void enterHeightField(String value) {
+        heightTxt.enter(value);
+        panelConfigurationOKBtn.click();
+    }
+
+    @Step
+    public void enterFolderField(String value) {
+        folderTxt.enter(value);
+        panelConfigurationOKBtn.click();
     }
 
 
