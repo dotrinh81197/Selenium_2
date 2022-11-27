@@ -18,6 +18,7 @@ public class WebDriverUltis {
     @Step("Accept alert pop up")
     public static void acceptAlert() {
         Selaium.confirm();
+        WebDriverUltis.waitForPageLoad();
     }
 
 

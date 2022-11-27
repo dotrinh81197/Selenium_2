@@ -55,7 +55,7 @@ public class DashboardNegativeTest extends TestBase {
         dashboardPage.createNewPage(childPage.getPageName(), parentPage.getPageName());
         WebDriverUltis.waitForPageLoad();
         dashboardPage.createNewPage(childPage.getPageName(), parentPage.getPageName());
-        AlertMessage alertMessage = new AlertMessage("pageNameAlreadyExist", childPage);
+        AlertMessage alertMessage = new AlertMessage("pageNameAlreadyExist", childPage.getPageName());
         String actualAlertMessage = Utilities.getAlertMessage();
         String expectedMessage = alertMessage.getAlertText();
         softAssert.assertEquals(actualAlertMessage, expectedMessage, "Verify alert message " + expectedMessage + "display");

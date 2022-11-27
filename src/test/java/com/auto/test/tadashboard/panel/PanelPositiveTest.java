@@ -43,7 +43,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesItemDisplayCorrectly(data));
         dashboardPage.removePage(newPage.getPageName());
 
-
+        softAssert.assertAll();
     }
 
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
@@ -60,7 +60,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickOnPage("Overview"));
         softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
-
+        softAssert.assertAll();
     }
 
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
@@ -77,6 +77,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickOnPage("Overview"));
         softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
+        softAssert.assertAll();
 
     }
 
@@ -101,7 +102,7 @@ public class PanelPositiveTest extends TestBase {
         Panel panel = new Panel("panelValidDisplayName");
         panelPage.createNewPanel(panel);
         softAssert.assertTrue(panelPage.doesPanelDisplays(panel));
-
+        softAssert.assertAll();
         panelPage.deleteAllPanels();
 
     }
@@ -120,7 +121,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertFalse(panelPage.doesSettingFormDisplay("Indicator Settings"));
         panelPage.selectPanelTypeRbn("Heat Map");
         softAssert.assertFalse(panelPage.doesSettingFormDisplay("Heat Map Settings"));
-
+        softAssert.assertAll();
     }
 
     @Test(description = "Verify that Data Profile listing of Add New Panel and Edit Panel control/form are in alphabetical order")
@@ -139,7 +140,7 @@ public class PanelPositiveTest extends TestBase {
 
         panelPage.clickEditPanel(panel);
         softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
-
+        softAssert.assertAll();
         panelPage.deleteAllPanels();
     }
 
@@ -162,7 +163,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
 
         panelPage.clickPanelCancelBtn();
-
+        softAssert.assertAll();
         dataProfilesPage.deleteAllDataProfileCreated();
     }
 
@@ -187,7 +188,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.createNewPanel(validPanel);
         WebDriverUltis.waitForPageLoad();
         softAssert.assertTrue(panelPage.doesPanelDisplays(validPanel));
-
+        softAssert.assertAll();
         panelPage.deleteAllPanels();
 
     }
@@ -202,7 +203,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.clickAddNewLink();
         ArrayList<String> chartTypeList = new ArrayList<String>(Arrays.asList("Pie", "Single Bar", "Stacked Bar", "Group Bar", "Line"));
         softAssert.assertEquals(panelPage.getChartTypeList(), chartTypeList);
-
+        softAssert.assertAll();
     }
 
     @Test(description = "Verify that Category, Series and Caption field are enabled and disabled correctly corresponding to each type of the Chart Type", dataProviderClass = JsonUtils.class, dataProvider = "getDataChartType")
@@ -221,9 +222,8 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertEquals(dashboardPage.doesSeriesDisable(), data.get("SeriesFieldDisable"));
         softAssert.assertEquals(dashboardPage.doesCategoriesCaptionDisable(), data.get("CategoryCaptionFieldDisable"));
         softAssert.assertEquals(dashboardPage.doesSeriesCaptionDisable(), data.get("SeriesCaptionFieldDisable"));
-
+        softAssert.assertAll();
         dashboardPage.closePanelModal();
-        dashboardPage.removePage(validPage.getPageName());
 
     }
 
@@ -262,7 +262,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
         softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
         softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
-
+        softAssert.assertAll();
         dashboardPage.closePanelModal();
         dashboardPage.removePage(validPage.getPageName());
         WebDriverUltis.waitForPageLoad();
@@ -283,7 +283,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.selectLegendRbn(data.get("legendType"));
 
         Panel defaultPanel = new Panel();
-        panelPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel);
+        softAssert.assertTrue(panelPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel));
 
         panelPage.closePanelModal();
 
@@ -296,6 +296,8 @@ public class PanelPositiveTest extends TestBase {
         panelPage.doesPanelFormDisplayUnchanged(panel);
         panelPage.closePanelModal();
         panelPage.deleteAllPanels();
+
+        softAssert.assertAll();
 
     }
 
@@ -314,9 +316,8 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Categories"), data.get("DataLabelCategoriesDisable"));
         softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Value"), data.get("DataLabelValueDisable"));
         softAssert.assertEquals(dashboardPage.doesDataLabelCbDisable("Percentage"), data.get("DataLabelPercentageDisable"));
-
+        softAssert.assertAll();
         dashboardPage.closePanelModal();
-        dashboardPage.removePage(validPage.getPageName());
 
     }
 
@@ -333,7 +334,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.selectPanelDataLabelCb(data.get("dataLabelType"));
         softAssert.assertTrue(dashboardPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel));
         dashboardPage.selectPanelDataLabelCb(data.get("dataLabelType"));
-
+        softAssert.assertAll();
         dashboardPage.closePanelModal();
 
     }
@@ -346,10 +347,13 @@ public class PanelPositiveTest extends TestBase {
         String newPage2 = FakerUtils.word();
         String newPage3 = FakerUtils.word();
         dashboardPage.createNewPage(newPage1);
+        WebDriverUltis.waitForPageLoad();
 
         dashboardPage.createNewPage(newPage2);
+        WebDriverUltis.waitForPageLoad();
 
         dashboardPage.createNewPage(newPage3);
+        WebDriverUltis.waitForPageLoad();
 
         dashboardPage.clickChoosePanelBtn();
         dashboardPage.clickCreateNewPanelBtn();
@@ -363,6 +367,7 @@ public class PanelPositiveTest extends TestBase {
         dashboardPage.gotoPanelPage();
         PanelPage panelPage = new PanelPage();
         panelPage.deleteAllPanels();
+        softAssert.assertAll();
 
     }
 
@@ -399,8 +404,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorRangeHeightAlert.getText()));
         WebDriverUltis.acceptAlert();
         dashboardPage.clickPanelConfigurationCancelBtn();
-
-        dashboardPage.removePage(newPage1);
+        softAssert.assertAll();
 
     }
 
@@ -419,7 +423,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
         WebDriverUltis.acceptAlert();
         dashboardPage.clickPanelConfigurationCancelBtn();
-        dashboardPage.removePage(page.getPageName());
+        softAssert.assertAll();
 
     }
 
@@ -439,7 +443,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
         WebDriverUltis.acceptAlert();
         dashboardPage.clickPanelConfigurationCancelBtn();
-        dashboardPage.removePage(page.getPageName());
+        softAssert.assertAll();
     }
 
     @Test(description = "Verify that only valid folder path of corresponding item type ( e.g. Actions, Test Modules) are allowed to be entered into Folder field")
@@ -463,8 +467,7 @@ public class PanelPositiveTest extends TestBase {
 
         dashboardPage.enterFolderField("SampleRepository/Car Rental/Actions");
         softAssert.assertTrue(dashboardPage.doesPanelDisplays());
-
-        dashboardPage.removePage(page.getPageName());
+        softAssert.assertAll();
 
     }
 }

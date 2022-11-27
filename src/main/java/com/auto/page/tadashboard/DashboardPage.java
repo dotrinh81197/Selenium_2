@@ -1,20 +1,19 @@
 package com.auto.page.tadashboard;
 
 import com.auto.model.Page;
+import com.auto.model.Panel;
 import com.auto.utils.Element;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
-import com.auto.model.Panel;
-
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-public class DashboardPage {
+public class DashboardPage extends GeneralPage {
     private final Element contentContainer = new Element("//div[@id='ccontent']");
     private final Element administratorLnk = new Element("//a[@href='#Welcome']");
     private final Element logoutLnk = new Element("//a[@href='logout.do']");
@@ -259,11 +258,11 @@ public class DashboardPage {
 
     @Step("Remove page")
     public void removePage(String pageName) {
-        WebDriverUltis.waitForPageLoad();
+
         clickOnPage(pageName);
         clickDeletePageBtn();
         WebDriverUltis.acceptAlert();
-        WebDriverUltis.waitForPageLoad();
+
     }
 
     @Step("Remove page")
@@ -272,7 +271,7 @@ public class DashboardPage {
             clickOnPage(pageList.get(i).toString());
             clickDeletePageBtn();
             WebDriverUltis.acceptAlert();
-            WebDriverUltis.waitForPageLoad();
+
         }
     }
 
@@ -286,7 +285,6 @@ public class DashboardPage {
             WebDriverUltis.forceClick(pageNoLnk.element());
             clickDeletePageBtn();
             WebDriverUltis.acceptAlert();
-            WebDriverUltis.waitForPageLoad();
 
         }
     }
@@ -295,7 +293,6 @@ public class DashboardPage {
     public void clickOnPage(String pageName) {
         pageLnk.set(pageName);
         WebDriverUltis.forceClick(pageLnk.element());
-        WebDriverUltis.waitForPageLoad();
     }
 
     @Step("Click on page name")
@@ -328,7 +325,7 @@ public class DashboardPage {
 
     @Step
     public void clickEditPage() {
-        WebDriverUltis.waitForPageLoad();
+
         hoverGlobalSettingLnk();
         editPageBtn.click();
     }
@@ -343,7 +340,6 @@ public class DashboardPage {
         selectDisplayAfterDrl(page);
         selectPublicCb(page);
         clickOKBtn();
-        WebDriverUltis.waitForPageLoad();
     }
 
     @Step("Create a new page")
@@ -351,7 +347,6 @@ public class DashboardPage {
         clickAddPageBtn();
         enterPageNameTxt(pageName);
         clickOKBtn();
-        WebDriverUltis.waitForPageLoad();
     }
 
     @Step("Remove Children Page")
@@ -391,7 +386,7 @@ public class DashboardPage {
 
     @Step
     public void editPageName(Page page, String newPageName) {
-        WebDriverUltis.waitForPageLoad();
+
         clickOnPage(page.getPageName());
         clickEditPage();
         page.setPageName(newPageName);
@@ -401,17 +396,17 @@ public class DashboardPage {
 
     @Step
     public void editDisplayAfter(Page page, String displayAfter) {
-        WebDriverUltis.waitForPageLoad();
+
         clickOnPage(page.getPageName());
         clickEditPage();
-        WebDriverUltis.waitForPageLoad();
+
         selectDisplayAfterDrl(displayAfter);
         OKBtn.click();
     }
 
     @Step
     public boolean doesNewPageDisplay(Page page) {
-        WebDriverUltis.waitForPageLoad();
+
         List<WebElement> listPage = listPageLnk.elements();
         Integer pageNumber = listPage.size();
         for (int i = 1; i <= pageNumber; i++) {
@@ -426,9 +421,9 @@ public class DashboardPage {
 
     @Step
     public boolean doesNewPageDisplay(String pageName) {
-        WebDriverUltis.waitForPageLoad();
+
         clickOnPage(pageName);
-       return WebDriverUltis.getCurrentTitlePage().contains(pageName);
+        return WebDriverUltis.getCurrentTitlePage().contains(pageName);
     }
 
     @Step
@@ -505,7 +500,7 @@ public class DashboardPage {
         int countItem = Integer.parseInt(data.get("ItemNumber"));
         for (int i = 1; i <= countItem; i++) {
             preSetPanelLnk.set(data.get("ItemNumber" + i));
-            if(!preSetPanelLnk.isDisplayed()){
+            if (!preSetPanelLnk.isDisplayed()) {
                 return false;
             }
         }

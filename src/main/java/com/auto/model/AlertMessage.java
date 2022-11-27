@@ -20,9 +20,9 @@ public class AlertMessage {
         this.text = data.get("text");
     }
 
-    public AlertMessage(String typeOfAlert, Page page) {
+    public AlertMessage(String typeOfAlert, String dynamicValue) {
         data = JsonUtils.getData(typeOfAlert, Data.ALERT_MESSAGE);
-        this.text = String.format(data.get("text"), page.getPageName());
+        this.text = String.format(data.get("text"), dynamicValue);
 
     }
 

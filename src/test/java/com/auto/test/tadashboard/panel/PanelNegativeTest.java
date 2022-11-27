@@ -30,7 +30,8 @@ public class PanelNegativeTest extends TestBase {
 
         AlertMessage alertMessage = new AlertMessage("panelDisplayNameIsRequired");
 
-       softAssert.assertTrue(panelPage.doesAlertTextDisplay(alertMessage.getText()));
+        softAssert.assertTrue(panelPage.doesAlertTextDisplay(alertMessage.getText()));
+        softAssert.assertAll();
 
     }
 
@@ -52,7 +53,7 @@ public class PanelNegativeTest extends TestBase {
 
         AlertMessage alertMessage = new AlertMessage("duplicatedDisplayNameAlert", panel.getDisplayName());
         softAssert.assertTrue(panelPage.doesAlertTextDisplay(alertMessage.getText()));
-
+        softAssert.assertAll();
         panelPage.deleteAllPanels();
     }
 
