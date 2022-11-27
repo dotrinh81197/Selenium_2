@@ -42,7 +42,6 @@ public class WebDriverUltis {
     }
 
     public static String getCurrentTitlePage() {
-        return driverContainer().title();
-    }
+        return driverContainer().title();}
 
 }

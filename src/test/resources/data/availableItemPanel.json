@@ -1,0 +1,23 @@
+{
+  "listItemPanelAvailable": [
+    {
+      "ItemNumber": "18",
+      "ItemNumber1": "Action Implementation By Status",
+      "ItemNumber2": "Test Case Execution Failure Trend",
+      "ItemNumber3": "Test Case Execution Results",
+      "ItemNumber4": "Test Case Execution Trend",
+      "ItemNumber5": "Test Module Execution Failure Trend",
+      "ItemNumber6": "Test Module Execution Results",
+      "ItemNumber7": "Test Module Execution Trend",
+      "ItemNumber8": "Test Module Implementation By Priority",
+      "ItemNumber9": "Test Module Implementation By Status",
+      "ItemNumber10": "Test Module Status per Assigned Users",
+      "ItemNumber11": "Test Case Execution",
+      "ItemNumber12": "Test Module Execution",
+      "ItemNumber13": "Test Objective Execution",
+      "ItemNumber14": "Test Module Execution Results Report",
+      "ItemNumber15": "Test Case Execution History",
+      "ItemNumber16": "Test Module Execution History"
+    }
+  ]
+}

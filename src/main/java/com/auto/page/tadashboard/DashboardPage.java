@@ -7,7 +7,11 @@ import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import com.auto.model.Panel;
+import com.auto.utils.Constants;
 
+
+import java.util.Hashtable;
 import java.util.List;
 
 public class DashboardPage {
@@ -47,10 +51,10 @@ public class DashboardPage {
     private final Element panelDataProfileDrl = new Element("//select[@id='cbbProfile']");
     private final Element panelStyle2DRbn = new Element("//input[@id='rdoChartStyle2D']");
     private final Element panelStyle3DRbn = new Element("//input[@id='rdoChartStyle3D']");
-    private final Element panelIsShow_cb = new Element("//input[@id='chkShowTitle']");
-    private final Element panelDataLabels_cb = new Element("//div[@id='div_panelPopup']//label[contains(text(), '%s')]/input");
-    private final Element panelTypeRbn = new Element("//div[@id='div_panelPopup']//label[text()=' %s']/input");
-    private final Element panelLegendsRbn = new Element("//div[@id='div_panelPopup']//label[text()=' %s']/input");
+    private final Element panelIsShowCb = new Element("//input[@id='chkShowTitle']");
+    private final Element panelDataLabelsCb = new Element("//label[contains(text(),'%s')]//input[contains(@name,'chk')]");
+    private final Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and text()='%s']//input[@name='radPanelType']");
+    private final Element panelLegendsRbn = new Element("//input[@name='radPlacement' and @value='%s']");
     private final Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
     private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
     private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
@@ -60,6 +64,11 @@ public class DashboardPage {
     private final Element folderTxt = new Element("//input[@id='txtFolder']");
     private final Element panelListLnk = new Element("//div[@class='al_lft']");
     private final Element selectPageDrl = new Element("//select[@id='cbbPages']");
+    private final Element displaySettingTab = new Element("//a[@href='#tabs-displaySettings']");
+    private final Element filterTab = new Element("//a[@href='#tabs-data']");
+    private final Element createNewPanelBtn = new Element("//div[@class='cpbutton']//span[@onclick=\"Dashboard.openAddPanel('2f9njff6y9');\"]");
+    private final Element hideBtn = new Element("//span[@id='btnHidePanel']");
+    private final Element preSetPanelLnk = new Element("//div[@class='pitem']//table//ul//li/a[normalize-space(contains(text(),'%s'))]");
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -385,6 +394,76 @@ public class DashboardPage {
         dataProfilesLnk.click();
     }
 
+    @Step
+    public void clickPanelConfigurationOKBtn() {
+        clickAdministerLnk();
+        panelConfigurationOKBtn.click();
+    }
+
+    @Step
+    public void createNewPanel(Panel panel) {
+        if (!panel.getType().equalsIgnoreCase("")) {
+            panelTypeRbn.set(panel.getType());
+            panelTypeRbn.click();
+        }
+        if (!panel.getDataProfile().equalsIgnoreCase("")) {
+            panelDataProfileDrl.select(panel.getDataProfile());
+        }
+        if (!panel.getDisplayName().equalsIgnoreCase("")) {
+            panelDisplayNameTxt.enter(panel.getDisplayName());
+        }
+        if (!panel.getChartTitle().equalsIgnoreCase("")) {
+            panelChartTitleTxt.enter(panel.getChartTitle());
+        }
+        if (!panel.getIsShowTitle().equalsIgnoreCase("") && panel.getIsShowTitle().equalsIgnoreCase("true")) {
+            panelIsShowCb.click();
+        }
+        if (!panel.getChartType().equalsIgnoreCase("")) {
+            panelChartTypeDrl.select(panel.getChartType());
+        }
+        if (!panel.getStyle().equalsIgnoreCase("")) {
+            if (panel.getStyle().equalsIgnoreCase("2D")) {
+                panelStyle2DRbn.click();
+            } else if (panel.getStyle().equalsIgnoreCase("3D")) {
+                panelStyle3DRbn.click();
+            }
+        }
+        if (!panel.getCategory().equalsIgnoreCase("")) {
+            panelCategoryDrl.select(panel.getCategory());
+        }
+        if (!panel.getCategoryCaption().equalsIgnoreCase("")) {
+            panelCategoryCaptionTxt.enter(panel.getCategoryCaption());
+        }
+        if (!panel.getSeries().equalsIgnoreCase("")) {
+            panelSeriesDrl.select(panel.getSeries());
+        }
+        if (!panel.getSeriesCaption().equalsIgnoreCase("")) {
+            panelSeriesCaptionTxt.enter(panel.getSeriesCaption());
+        }
+        if (!panel.getLegends().equalsIgnoreCase("")) {
+            panelLegendsRbn.set(panel.getLegends());
+        }
+        if (!panel.getDataLabels().equalsIgnoreCase("")) {
+            String[] labels;
+            labels = panel.getDataLabels().split(",");
+            for (String temp : labels) {
+                panelDataLabelsCb.click();
+            }
+        }
+        panelOKBtn.click();
+    }
+
+    @Step
+    public boolean doesItemDisplayCorrectly(Hashtable<String, String> data) {
+        int countItem = Integer.parseInt(data.get("ItemNumber"));
+        for (int i = 1; i <= countItem; i++) {
+            preSetPanelLnk.set(data.get("ItemNumber" + i));
+            if(!preSetPanelLnk.isDisplayed()){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
 

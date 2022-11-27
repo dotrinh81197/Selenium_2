@@ -2,10 +2,15 @@ package com.auto.utils;
 
 import com.auto.data.enums.Data;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.DataProvider;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -94,5 +99,18 @@ public class JsonUtils {
         ObjectMapper oMapper = new ObjectMapper();
         Object[][] obj = JsonUtils.jsonToObject(dataType, path.value());
         return data = oMapper.convertValue(obj[0][0], Hashtable.class);
+    }
+
+    @DataProvider
+    public Object[][] getDataItemPanelAvailable() {
+        Object[][] data ;
+        String DataFilePath = "src/test/resources/data/availableItemPanel.json";
+        JsonObject object = JsonUtils.to(DataFilePath, JsonObject.class);
+
+        JsonObject itemList = object.getAsJsonObject();
+        JsonArray jsonArray = itemList.getAsJsonArray("listItemPanelAvailable");
+        data = jsonArrayToObjectArray(jsonArray);
+
+        return data;
     }
 }

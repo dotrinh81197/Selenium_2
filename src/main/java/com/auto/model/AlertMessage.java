@@ -19,10 +19,11 @@ public class AlertMessage {
         data = JsonUtils.getData(typeOfAlert, Data.ALERT_MESSAGE);
         this.text = data.get("text");
     }
-
+    
     public AlertMessage(String typeOfAlert, Page page) {
         data = JsonUtils.getData(typeOfAlert, Data.ALERT_MESSAGE);
         this.text = String.format(data.get("text"), page.getPageName());
     }
 
 }
+
