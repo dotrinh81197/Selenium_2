@@ -14,14 +14,14 @@
       "text": "Are you sure you want to remove this page?"
     }
   ],
-  "cannotRemoveTestPage": [
+  "cannotRemoveParentPageSinceHasChildren": [
     {
-      "text": "Can not delete page 'Test' since it has children page(s)."
+      "text": "Cannot delete page '%s' since it has child page(s).\n"
     }
   ],
   "pageNameAlreadyExist": [
     {
-      "text": "TestChild1 already exist. Please enter a diffrerent name."
+      "text": "%s already exists. Please enter a different name."
     }
   ],
   "panelDisplayNameIsRequired": [
@@ -32,11 +32,6 @@
   "panelDisplayNameIsNotValid": [
     {
       "text": "Invalid display name. The name cannot contain high ASCII characters or any of the following characters: /:*?<>|\"#[]{}=%;"
-    }
-  ],
-  "duplicatedDisplayNameAlert": [
-    {
-      "text": "Logigear@ already exists. Please enter a different name."
     }
   ],
   "panelChartTitleIsNotValid": [
@@ -59,9 +54,10 @@
       "text": "Panel height is a required field."
     }
   ],
-  "panelConfigurationErrorInvalidFolderAlert": [
+  "panelConfigurationErrorEmptyFolderAlert": [
     {
       "text": "Panel folder is incorrect"
     }
   ]
 }
+
