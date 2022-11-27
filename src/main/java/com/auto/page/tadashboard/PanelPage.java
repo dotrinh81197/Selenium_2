@@ -1,12 +1,13 @@
 package com.auto.page.tadashboard;
 
-import com.auto.model.Page;
 import com.auto.model.Panel;
 import com.auto.utils.WebDriverUltis;
 import com.google.common.collect.Ordering;
 import com.logigear.element.Element;
 import io.qameta.allure.Step;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PanelPage extends GeneralPage {
@@ -32,10 +33,12 @@ public class PanelPage extends GeneralPage {
     }
 
     public void deleteAllPanels() {
-        checkAllLnk.click();
-        deleteCheckedLnk.click();
-        WebDriverUltis.acceptAlert();
-        WebDriverUltis.waitForPageLoad();
+        if (checkAllLnk.isDisplayed()) {
+            checkAllLnk.click();
+            deleteCheckedLnk.click();
+            WebDriverUltis.acceptAlert();
+            WebDriverUltis.waitForPageLoad();
+        }
     }
 
     public void clickEditPanel(Panel panel) {
@@ -46,14 +49,15 @@ public class PanelPage extends GeneralPage {
     @Step
     public boolean doesPanelDisplays(Panel panel) {
         panelNameLnk.set(panel.getDisplayName());
-        return panelNameLnk.isDisplayed();
+        return panelNameLnk.isEnabled();
     }
+
 
     @Step
     public boolean clickOnPage(String pageName) {
         try {
             pageLnk.set(pageName);
-            WebDriverUltis.forceClick(pageLnk.element());
+            pageLnk.click();
             return true;
         } catch (Exception e) {
             return false;
@@ -89,12 +93,12 @@ public class PanelPage extends GeneralPage {
 
     @Step
     public void selectDataProfileDrl(String value) {
-        panelDataProfileDrl.select(value);
+        panelDataProfileDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
     public void selectChartTypeDrl(String value) {
-        panelChartTypeDrl.select(value);
+        panelChartTypeDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
@@ -134,12 +138,12 @@ public class PanelPage extends GeneralPage {
 
     @Step
     public void selectCategoryDrl(String value) {
-        panelCategoryDrl.select(value);
+        panelCategoryDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
     public void selectSeriesDrl(String value) {
-        panelSeriesDrl.select(value);
+        panelSeriesDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
@@ -161,6 +165,23 @@ public class PanelPage extends GeneralPage {
 
     @Step
     public void createNewPanel(Panel panel) {
+        fillCreatePanelModal(panel);
+        clickOKButton();
+    }
+
+    public void createNewPanel(String displayName, String series) {
+        fillCreatePanelModal(displayName, series);
+        clickOKButton();
+    }
+
+    @Step
+    public void fillCreatePanelModal(String displayName, String series) {
+        enterDisplayNameTxt(displayName);
+        selectSeriesDrl(series);
+    }
+
+    @Step
+    public void fillCreatePanelModal(Panel panel) {
         if (!panel.getType().equalsIgnoreCase("")) {
             clickPanelTypeRhn(panel.getType());
         }
@@ -205,13 +226,12 @@ public class PanelPage extends GeneralPage {
             clickDataLabelsCb(panel.getDataLabels());
 
         }
-        clickOKButton();
     }
 
     @Step
     public boolean doesSettingFormDisplay(String value) {
         settingForm.set(value);
-        return settingForm.isDisplayed();
+        return settingForm.isEnabled();
     }
 
     @Step
@@ -223,6 +243,7 @@ public class PanelPage extends GeneralPage {
             for (String temp : listSelection) {
                 listOfSelection.add(temp);
             }
+            Collections.sort(listOfSelection);
             return Ordering.natural().isOrdered(listOfSelection);
         } catch (Exception e) {
             System.out.printf("Can't find Dropdown list");

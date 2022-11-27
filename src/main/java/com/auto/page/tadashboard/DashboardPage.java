@@ -54,7 +54,7 @@ public class DashboardPage extends GeneralPage {
     private final Element panelStyle3DRbn = new Element("//input[@id='rdoChartStyle3D']");
     private final Element panelIsShowCb = new Element("//input[@id='chkShowTitle']");
     private final Element panelDataLabelsCb = new Element("//label[contains(text(),'%s')]//input[contains(@name,'chk')]");
-    private final Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and text()='%s']//input[@name='radPanelType']");
+    private final Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and normalize-space(contains(text(),'%s'))] //input[@name='radPanelType']");
     private final Element panelLegendsRbn = new Element("//input[@name='radPlacement' and @value='%s']");
     private final Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
     private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
@@ -75,7 +75,6 @@ public class DashboardPage extends GeneralPage {
     private final Element clonePanelBtn = new Element("//li[@class='clone']");
     private final Element panelChartsTypeLnk = new Element("//div[@class='ptit pchart']//following-sibling::table//a[normalize-space(contains(text(), '%s'))]");
 
-
     public String getRepositoryName() {
         return repositoryLnk.getText();
     }
@@ -84,6 +83,10 @@ public class DashboardPage extends GeneralPage {
     @Step("Verify content dashboard display")
     public boolean doesContentDisplay() {
         return contentContainer.isDisplayed();
+    }
+
+    public boolean doesCancelBtnEnable() {
+        return panelCancelBtn.isDisplayed()|| cancelBtn.isDisplayed()|| panelConfigurationCancelBtn.isDisplayed();
     }
 
     @Step("Select repository")
@@ -449,7 +452,7 @@ public class DashboardPage extends GeneralPage {
             panelTypeRbn.click();
         }
         if (!panel.getDataProfile().equalsIgnoreCase("")) {
-            panelDataProfileDrl.select(panel.getDataProfile());
+            panelDataProfileDrl.selectByPartOfVisibleText(panel.getDataProfile());
         }
         if (!panel.getDisplayName().equalsIgnoreCase("")) {
             panelDisplayNameTxt.enter(panel.getDisplayName());
@@ -461,7 +464,7 @@ public class DashboardPage extends GeneralPage {
             panelIsShowCb.click();
         }
         if (!panel.getChartType().equalsIgnoreCase("")) {
-            panelChartTypeDrl.select(panel.getChartType());
+            panelChartTypeDrl.selectByPartOfVisibleText(panel.getChartType());
         }
         if (!panel.getStyle().equalsIgnoreCase("")) {
             if (panel.getStyle().equalsIgnoreCase("2D")) {
@@ -471,13 +474,13 @@ public class DashboardPage extends GeneralPage {
             }
         }
         if (!panel.getCategory().equalsIgnoreCase("")) {
-            panelCategoryDrl.select(panel.getCategory());
+            panelCategoryDrl.selectByPartOfVisibleText(panel.getCategory());
         }
         if (!panel.getCategoryCaption().equalsIgnoreCase("")) {
             panelCategoryCaptionTxt.enter(panel.getCategoryCaption());
         }
         if (!panel.getSeries().equalsIgnoreCase("")) {
-            panelSeriesDrl.select(panel.getSeries());
+            panelSeriesDrl.selectByPartOfVisibleText(panel.getSeries());
         }
         if (!panel.getSeriesCaption().equalsIgnoreCase("")) {
             panelSeriesCaptionTxt.enter(panel.getSeriesCaption());

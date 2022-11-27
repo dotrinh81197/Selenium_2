@@ -47,7 +47,7 @@ public class GeneralPage {
     protected Element heightTxt = new Element("//input[@id='txtHeight']");
     protected Element folderTxt = new Element("//input[@id='txtFolder']");
     protected Element panelConfigurationOKBtn = new Element("//input[contains(@onclick,'Dashboard.addPanelToPage')]");
-
+    protected Element closeModalBtn = new Element("//a[@class='ui-dialog-titlebar-close']");
 
 
     @Step("Check Alert text display")
@@ -60,6 +60,11 @@ public class GeneralPage {
     @Step
     public void clickAdministerLnk() {
         administerLnk.click();
+    }
+
+    @Step
+    public void closeModalBtn() {
+        closeModalBtn.click();
     }
 
     @Step
@@ -117,12 +122,12 @@ public class GeneralPage {
 
     @Step
     public void selectChartTypeDrl(String value) {
-        panelChartTypeDrl.select(value);
+        panelChartTypeDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
     public void selectPagePanelConfig(String value) {
-        selectPageDrl.select(value);
+        selectPageDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
@@ -200,7 +205,7 @@ public class GeneralPage {
 
     @Step
     public void selectDataProfileDrl(String value) {
-        panelDataProfileDrl.select(value);
+        panelDataProfileDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
@@ -240,12 +245,12 @@ public class GeneralPage {
 
     @Step
     public void selectCategoryDrl(String value) {
-        panelCategoryDrl.select(value);
+        panelCategoryDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
     public void selectSeriesDrl(String value) {
-        panelSeriesDrl.select(value);
+        panelSeriesDrl.selectByPartOfVisibleText(value);
     }
 
     @Step
@@ -375,6 +380,16 @@ public class GeneralPage {
     }
 
     @Step
+    public boolean doesDropdownFieldUnChanges(String value, Element element) {
+        try {
+            return element.getSelected().equalsIgnoreCase(value);
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Step
     public boolean doesTypeUnChanges(String value) {
         panelTypeRbn.set(value);
         return panelTypeRbn.isSelected();
@@ -393,7 +408,7 @@ public class GeneralPage {
 
     @Step
     public boolean doesDataProfileUnChanges(String value) {
-        return doesValueFieldUnChanges(value, panelDataProfileDrl);
+        return doesDropdownFieldUnChanges(value, panelDataProfileDrl);
     }
 
     @Step

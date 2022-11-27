@@ -1,9 +1,9 @@
 package com.auto.test;
 
 import com.auto.page.tadashboard.DashboardPage;
+import com.auto.page.tadashboard.PanelPage;
 import com.auto.utils.PropertiesFile;
 import com.auto.utils.Utilities;
-import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
 import com.logigear.utils.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -33,10 +33,11 @@ public class TestBase {
         Utilities.deleteFiles(new File(System.getProperty("user.dir") + "/allure-results"));
 
     }
+
     @BeforeClass
     @Parameters("platform")
     public void beforeAll(@Optional String platform) {
-        PropertiesFile data = new  PropertiesFile();
+        PropertiesFile data = new PropertiesFile();
         data.getProperties();
         platform = java.util.Optional.ofNullable(platform).orElse(data.getPropertyValue("browser"));
         log.info("Running test on {}", platform);
@@ -55,14 +56,20 @@ public class TestBase {
     @BeforeMethod
     public void beforeMethod() {
         open(LOGIN_PAGE_URL);
-        WebDriverUltis.waitForPageLoad();
+//        WebDriverUltis.waitForPageLoad();
     }
 
     @AfterMethod
     public void afterMethod() {
         DashboardPage dashboardPage = new DashboardPage();
         if (dashboardPage.doesContentDisplay()) {
+            if (dashboardPage.doesCancelBtnEnable()) {
+                dashboardPage.closeModalBtn();
+            }
             dashboardPage.removeAllPage();
+            dashboardPage.gotoPanelPage();
+            PanelPage panelPage = new PanelPage();
+            panelPage.deleteAllPanels();
             dashboardPage.logout();
         } else Selaium.closeWebDriver();
 

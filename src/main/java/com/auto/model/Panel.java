@@ -27,15 +27,16 @@ public class Panel {
     public Panel() {
         this.type = "Chart";
         this.dataProfile = "Action Implementation By Status";
-        this.displayName = "";
+        this.displayName = FakerUtils.word();
         this.chartTitle = "";
         this.isShowTitle = "false";
         this.chartType = "Pie";
         this.style = "2D";
         this.category = "";
         this.categoryCaption = "";
-        this.series = "";
+        this.series = "Name";
         this.seriesCaption = "";
+        this.legends = "";
         this.dataLabels = "";
     }
 

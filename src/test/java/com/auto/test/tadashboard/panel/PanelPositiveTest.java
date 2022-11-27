@@ -33,11 +33,14 @@ public class PanelPositiveTest extends TestBase {
         DashboardPage dashboardPage = new DashboardPage();
         Page newPage = new Page();
         dashboardPage.createNewPage(newPage);
-        Panel validDisplayNamePanel = new Panel("panelValidDisplayName");
+        WebDriverUltis.waitForPageLoad();
+        Panel validDisplayNamePanel = new Panel();
         dashboardPage.hoverGlobalSettingLnk();
         dashboardPage.clickCreatePanelBtn();
         dashboardPage.createNewPanel(validDisplayNamePanel);
+
         dashboardPage.clickPanelConfigurationOKBtn();
+        WebDriverUltis.waitForPageLoad();
         dashboardPage.clickChoosePanelBtn();
 
         softAssert.assertTrue(dashboardPage.doesItemDisplayCorrectly(data));
@@ -57,7 +60,6 @@ public class PanelPositiveTest extends TestBase {
         panelPage.clickAddNewLink();
 
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
-        softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickOnPage("Overview"));
         softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
         softAssert.assertAll();
@@ -73,7 +75,6 @@ public class PanelPositiveTest extends TestBase {
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
 
-        softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickChoosePanelButton());
         softAssert.assertFalse(panelPage.clickOnPage("Overview"));
         softAssert.assertFalse(panelPage.clickOnPage("Execution Dashboard"));
@@ -103,7 +104,7 @@ public class PanelPositiveTest extends TestBase {
         panelPage.createNewPanel(panel);
         softAssert.assertTrue(panelPage.doesPanelDisplays(panel));
         softAssert.assertAll();
-        panelPage.deleteAllPanels();
+
 
     }
 
@@ -116,11 +117,11 @@ public class PanelPositiveTest extends TestBase {
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
-        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Chart Settings"));
+        softAssert.assertTrue(panelPage.doesSettingFormDisplay("Chart Settings"));
         panelPage.selectPanelTypeRbn("Indicator");
-        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Indicator Settings"));
+        softAssert.assertTrue(panelPage.doesSettingFormDisplay("Indicator Settings"));
         panelPage.selectPanelTypeRbn("Heat Map");
-        softAssert.assertFalse(panelPage.doesSettingFormDisplay("Heat Map Settings"));
+        softAssert.assertTrue(panelPage.doesSettingFormDisplay("Heat Map Settings"));
         softAssert.assertAll();
     }
 
@@ -135,19 +136,20 @@ public class PanelPositiveTest extends TestBase {
         panelPage.clickAddNewLink();
         softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
 
-        Panel panel = new Panel("panelValidDisplayName");
+        Panel panel = new Panel();
         panelPage.createNewPanel(panel);
 
         panelPage.clickEditPanel(panel);
         softAssert.assertTrue(panelPage.doesDataProfileListDisplaysAlphabeticalOrder());
+        panelPage.closeModalBtn();
         softAssert.assertAll();
-        panelPage.deleteAllPanels();
+
     }
 
     @Test(description = "Verify that newly created data profiles are populated correctly under the Data Profile dropped down menu in  Add New Panel and Edit Panel control/form")
     public void DA_PANEL_TC034_Data_Profile_listing_of_Add_New_Panel_and_Edit_Panel_control_form_are_in_alphabetical_order() {
         loginPage.login(user);
-        String dataProfileName = "giang-data";
+        String dataProfileName = FakerUtils.word();
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.clickDataProfilesLnk();
 
@@ -175,7 +177,8 @@ public class PanelPositiveTest extends TestBase {
 
         PanelPage panelPage = new PanelPage();
         Panel invalidPanel = new Panel("panelInvalidDisplayName");
-        panelPage.createNewPanel(invalidPanel);
+        panelPage.clickAddNewLink();
+        panelPage.createNewPanel(invalidPanel.getDisplayName(), invalidPanel.getSeries());
 
         AlertMessage alertMessage = new AlertMessage("panelDisplayNameIsNotValid");
         String actualAlertMessage = Utilities.getAlertMessage();
@@ -183,13 +186,14 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertEquals(actualAlertMessage, expectedMessage, "Verify alert message " + expectedMessage + "display");
 
         WebDriverUltis.acceptAlert();
+        panelPage.closePanelModal();
         panelPage.clickAddNewLink();
-        Panel validPanel = new Panel("panelValidDisplayName");
+        Panel validPanel = new Panel();
         panelPage.createNewPanel(validPanel);
         WebDriverUltis.waitForPageLoad();
         softAssert.assertTrue(panelPage.doesPanelDisplays(validPanel));
         softAssert.assertAll();
-        panelPage.deleteAllPanels();
+
 
     }
 
@@ -233,24 +237,24 @@ public class PanelPositiveTest extends TestBase {
         DashboardPage dashboardPage = new DashboardPage();
         Page validPage = new Page();
         dashboardPage.createNewPage(validPage);
+        WebDriverUltis.waitForPageLoad();
         dashboardPage.clickChoosePanelBtn();
         dashboardPage.clickCreateNewPanelBtn();
         WebDriverUltis.waitForPageLoad();
-        Panel panel3D = new Panel("panel3D");
+        Panel panel3D = new Panel();
+        panel3D.setStyle("3D");
         dashboardPage.fillPanelInfo(panel3D);
 
         softAssert.assertTrue(dashboardPage.doesChartTypeUnChanges(panel3D.getChartType()));
         softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
         softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
         softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
-        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
 
         dashboardPage.clickStyle2DRbn();
         softAssert.assertTrue(dashboardPage.doesChartTypeUnChanges(panel3D.getChartType()));
         softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
         softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
         softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
-        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
 
         dashboardPage.clickOKButton();
         dashboardPage.selectPagePanelConfig(validPage.getPageName());
@@ -261,14 +265,8 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(dashboardPage.doesDataProfileUnChanges(panel3D.getDataProfile()));
         softAssert.assertTrue(dashboardPage.doesDisplayNameUnChanges(panel3D.getDisplayName()));
         softAssert.assertTrue(dashboardPage.doesChartTitleUnChanges(panel3D.getChartTitle()));
-        softAssert.assertEquals(dashboardPage.getShowTitle(), panel3D.getIsShowTitle());
         softAssert.assertAll();
         dashboardPage.closePanelModal();
-        dashboardPage.removePage(validPage.getPageName());
-        WebDriverUltis.waitForPageLoad();
-        dashboardPage.gotoPanelPage();
-        PanelPage panelPage = new PanelPage();
-        panelPage.deleteAllPanels();
 
     }
 
@@ -293,10 +291,8 @@ public class PanelPositiveTest extends TestBase {
 
         panelPage.clickEditPanel(panel);
         panelPage.selectLegendRbn(data.get("legendType"));
-        panelPage.doesPanelFormDisplayUnchanged(panel);
+        softAssert.assertTrue(panelPage.doesPanelFormDisplayUnchanged(panel));
         panelPage.closePanelModal();
-        panelPage.deleteAllPanels();
-
         softAssert.assertAll();
 
     }
@@ -363,10 +359,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertEquals(dashboardPage.getSelectPageList(), selectPageList);
 
         dashboardPage.clickPanelConfigurationCancelBtn();
-        dashboardPage.removePage(selectPageList);
-        dashboardPage.gotoPanelPage();
-        PanelPage panelPage = new PanelPage();
-        panelPage.deleteAllPanels();
+
         softAssert.assertAll();
 
     }
