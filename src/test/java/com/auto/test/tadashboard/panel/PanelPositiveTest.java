@@ -285,7 +285,7 @@ public class PanelPositiveTest extends TestBase {
 
         panelPage.closePanelModal();
 
-        Panel panel = new Panel("panelValidDisplayName");
+        Panel panel = new Panel();
         panelPage.clickAddNewLink();
         panelPage.createNewPanel(panel);
 
@@ -326,9 +326,9 @@ public class PanelPositiveTest extends TestBase {
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
         WebDriverUltis.waitForPageLoad();
-        Panel defaultPanel = new Panel();
+
         panelPage.selectPanelDataLabelCb(data.get("dataLabelType"));
-        softAssert.assertTrue(dashboardPage.doesPanelDefaultFormDisplayUnchanged(defaultPanel));
+        softAssert.assertTrue(dashboardPage.doesPanelDefaultFormDisplayUnchanged());
         dashboardPage.selectPanelDataLabelCb(data.get("dataLabelType"));
         softAssert.assertAll();
         dashboardPage.closePanelModal();
@@ -353,10 +353,11 @@ public class PanelPositiveTest extends TestBase {
 
         dashboardPage.clickChoosePanelBtn();
         dashboardPage.clickCreateNewPanelBtn();
-        Panel panel = new Panel("panelValidDisplayName");
+        Panel panel = new Panel();
         dashboardPage.createNewPanel(panel);
-        ArrayList<String> selectPageList = new ArrayList<String>(Arrays.asList(newPage1, newPage2, newPage3));
-        softAssert.assertEquals(dashboardPage.getSelectPageList(), selectPageList);
+        softAssert.assertTrue(dashboardPage.getSelectPageList().contains(newPage1));
+        softAssert.assertTrue(dashboardPage.getSelectPageList().contains(newPage2));
+        softAssert.assertTrue(dashboardPage.getSelectPageList().contains(newPage3));
 
         dashboardPage.clickPanelConfigurationCancelBtn();
 
@@ -432,7 +433,7 @@ public class PanelPositiveTest extends TestBase {
         dashboardPage.enterFolderField("");
         WebDriverUltis.waitForAlertDisplays();
 
-        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationErrorEmptyFolderAlert");
+        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationInvalidFolderAlert");
         softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
         WebDriverUltis.acceptAlert();
         dashboardPage.clickPanelConfigurationCancelBtn();
@@ -448,13 +449,13 @@ public class PanelPositiveTest extends TestBase {
         dashboardPage.createNewPage(page);
         WebDriverUltis.waitForPageLoad();
 
-        Panel panel = new Panel("panelValidDisplayName");
+        Panel panel = new Panel();
         dashboardPage.clickChoosePanelBtn();
         dashboardPage.clickCreateNewPanelBtn();
         dashboardPage.createNewPanel(panel);
 
         dashboardPage.enterFolderField("invalid");
-        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationErrorInvalidFolderAlert");
+        AlertMessage errorEmptyHeightAlert = new AlertMessage("panelConfigurationInvalidFolderAlert");
         softAssert.assertTrue(dashboardPage.doesAlertTextDisplay(errorEmptyHeightAlert.getText()));
         WebDriverUltis.acceptAlert();
 
@@ -463,4 +464,6 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
 
     }
+
+
 }
