@@ -10,28 +10,29 @@
     {
       "ChartType": "Single Bar",
       "DataLabelSeriesDisable": false,
-      "DataLabelCategoryDisable": false,
+      "DataLabelCategoriesDisable": true,
       "DataLabelValueDisable": false,
       "DataLabelPercentageDisable": false
-    },
+    }
+  ,
     {
       "ChartType": "Stacked Bar",
       "DataLabelSeriesDisable": false,
-      "DataLabelCategoryDisable": false,
+      "DataLabelCategoriesDisable": false,
       "DataLabelValueDisable": false,
       "DataLabelPercentageDisable": false
     },
     {
       "ChartType": "Group Bar",
       "DataLabelSeriesDisable": false,
-      "DataLabelCategoryDisable": false,
-      "DataLabelValueDisable": true,
-      "DataLabelPercentageDisable": true
+      "DataLabelCategoriesDisable": false,
+      "DataLabelValueDisable": false,
+      "DataLabelPercentageDisable": false
     },
     {
       "ChartType": "Line",
       "DataLabelSeriesDisable": true,
-      "DataLabelCategoryDisable": true,
+      "DataLabelCategoriesDisable": true,
       "DataLabelValueDisable": true,
       "DataLabelPercentageDisable": true
     }

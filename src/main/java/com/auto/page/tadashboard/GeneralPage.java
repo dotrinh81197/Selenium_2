@@ -457,7 +457,7 @@ public class GeneralPage {
         chartTitle = doesChartTitleUnChanges(panel.getChartTitle());
         charType = doesChartTypeUnChanges(panel.getChartType());
         category = doesCategoriesCaptionDisable();
-        series = !doesSeriesCaptionDisable();
+        series = !doesSeriesDisable();
         dataLabels = doesDataLabelsNoneSelected();
         return type && dataProfile && displayName && chartTitle && charType && category && series && dataLabels;
 

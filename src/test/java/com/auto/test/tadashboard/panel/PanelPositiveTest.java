@@ -303,6 +303,7 @@ public class PanelPositiveTest extends TestBase {
         DashboardPage dashboardPage = new DashboardPage();
         Page validPage = new Page();
         dashboardPage.createNewPage(validPage);
+        WebDriverUltis.waitForPageLoad();
         dashboardPage.clickChoosePanelBtn();
         dashboardPage.clickCreateNewPanelBtn();
         WebDriverUltis.waitForPageLoad();
