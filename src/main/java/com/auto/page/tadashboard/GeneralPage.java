@@ -380,6 +380,16 @@ public class GeneralPage {
     }
 
     @Step
+    public boolean doesTextBoxFieldUnChanges(String value, Element element) {
+        try {
+            return element.getText().equalsIgnoreCase(value);
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Step
     public boolean doesDropdownFieldUnChanges(String value, Element element) {
         try {
             return element.getSelected().equalsIgnoreCase(value);
@@ -457,9 +467,22 @@ public class GeneralPage {
         chartTitle = doesChartTitleUnChanges(panel.getChartTitle());
         charType = doesChartTypeUnChanges(panel.getChartType());
         category = doesCategoriesCaptionDisable();
-        series = !doesSeriesDisable();
-        dataLabels = doesDataLabelsNoneSelected();
-        return type && dataProfile && displayName && chartTitle && charType && category && series && dataLabels;
+        series = doesSeriesCaptionDisable();
+        return type && dataProfile && displayName && chartTitle && charType && category && series;
+
+    }
+
+    @Step
+    public boolean doesPanelDefaultFormDisplayUnchanged() {
+        boolean type, dataProfile, displayName, chartTitle, charType, category, series;
+        type = doesTypeUnChanges("Chart");
+        dataProfile = doesDataProfileUnChanges("Action Implementation By Status");
+        displayName = doesDisplayNameUnChanges("");
+        chartTitle = doesChartTitleUnChanges("");
+        charType = doesChartTypeUnChanges("Pie");
+        category = doesCategoriesCaptionDisable();
+        series = doesSeriesCaptionDisable();
+        return type && dataProfile && displayName && chartTitle && charType && category && series;
 
     }
 
