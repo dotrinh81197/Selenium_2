@@ -27,7 +27,7 @@ public class GeneralPage {
     protected Element panelDisplayNameTxt = new Element("//input[@id='txtDisplayName']");
     protected Element panelChartTitleTxt = new Element("//input[@id='txtChartTitle']");
     protected Element panelCategoryCaptionTxt = new Element("//input[@id='txtCategoryXAxis']");
-    protected com.auto.utils.Element panelSeriesCaptionTxt = new Element("//input[@id='txtValueYAxis']");
+    protected Element panelSeriesCaptionTxt = new Element("//input[@id='txtValueYAxis']");
     protected Element panelCategoryDrl = new Element("//select[@id='cbbCategoryField']");
     protected Element panelSeriesDrl = new Element("//select[@id='cbbSeriesField']");
     protected Element panelChartTypeDrl = new Element("//select[@id='cbbChartType']");
@@ -146,7 +146,7 @@ public class GeneralPage {
     @Step
     public void createNewPanel(Panel panel) {
         fillPanelInfo(panel);
-        clickOKButton();
+        clickPanelOkBtn();
     }
 
     @Step

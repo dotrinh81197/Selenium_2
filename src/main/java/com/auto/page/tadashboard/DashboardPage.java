@@ -57,8 +57,7 @@ public class DashboardPage extends GeneralPage {
     private final Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and normalize-space(contains(text(),'%s'))] //input[@name='radPanelType']");
     private final Element panelLegendsRbn = new Element("//input[@name='radPlacement' and @value='%s']");
     private final Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
-    private final Element panelOKBtn = new Element("//div[@id='div_panelPopup']//input[@id='OK']");
-    private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
+        private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
     private final Element panelConfigurationCancelBtn = new Element("//input[@onclick='Dashboard.closePanelConfigurationDlg();']");
 
     private final Element heightTxt = new Element("//input[@id='txtHeight']");
@@ -74,6 +73,10 @@ public class DashboardPage extends GeneralPage {
     private final Element morePanelBtn = new Element("//li[@class='more']");
     private final Element clonePanelBtn = new Element("//li[@class='clone']");
     private final Element panelChartsTypeLnk = new Element("//div[@class='ptit pchart']//following-sibling::table//a[normalize-space(contains(text(), '%s'))]");
+    private final Element openFolderBtn = new Element("//a[@href='javascript:Dashboard.treeFolder();']");
+    private final Element folderLnk = new Element("//a[@onclick='Dashboard.nodeSelected(this);']");
+    private final Element toggleBtn = new Element("//a[@onclick='Dashboard.nodeSelected(this);']//preceding-sibling::a");
+    private final Element selectionOKBtn = new Element("//input[@id='btnFolderSelectionOK']");
 
     public String getRepositoryName() {
         return repositoryLnk.getText();
@@ -86,7 +89,7 @@ public class DashboardPage extends GeneralPage {
     }
 
     public boolean doesCancelBtnEnable() {
-        return panelCancelBtn.isDisplayed()|| cancelBtn.isDisplayed()|| panelConfigurationCancelBtn.isDisplayed();
+        return panelCancelBtn.isDisplayed() || cancelBtn.isDisplayed() || panelConfigurationCancelBtn.isDisplayed();
     }
 
     @Step("Select repository")
@@ -446,57 +449,10 @@ public class DashboardPage extends GeneralPage {
     }
 
     @Step
-    public void createNewPanel(Panel panel) {
-        if (!panel.getType().equalsIgnoreCase("")) {
-            panelTypeRbn.set(panel.getType());
-            panelTypeRbn.click();
-        }
-        if (!panel.getDataProfile().equalsIgnoreCase("")) {
-            panelDataProfileDrl.selectByPartOfVisibleText(panel.getDataProfile());
-        }
-        if (!panel.getDisplayName().equalsIgnoreCase("")) {
-            panelDisplayNameTxt.enter(panel.getDisplayName());
-        }
-        if (!panel.getChartTitle().equalsIgnoreCase("")) {
-            panelChartTitleTxt.enter(panel.getChartTitle());
-        }
-        if (!panel.getIsShowTitle().equalsIgnoreCase("") && panel.getIsShowTitle().equalsIgnoreCase("true")) {
-            panelIsShowCb.click();
-        }
-        if (!panel.getChartType().equalsIgnoreCase("")) {
-            panelChartTypeDrl.selectByPartOfVisibleText(panel.getChartType());
-        }
-        if (!panel.getStyle().equalsIgnoreCase("")) {
-            if (panel.getStyle().equalsIgnoreCase("2D")) {
-                panelStyle2DRbn.click();
-            } else if (panel.getStyle().equalsIgnoreCase("3D")) {
-                panelStyle3DRbn.click();
-            }
-        }
-        if (!panel.getCategory().equalsIgnoreCase("")) {
-            panelCategoryDrl.selectByPartOfVisibleText(panel.getCategory());
-        }
-        if (!panel.getCategoryCaption().equalsIgnoreCase("")) {
-            panelCategoryCaptionTxt.enter(panel.getCategoryCaption());
-        }
-        if (!panel.getSeries().equalsIgnoreCase("")) {
-            panelSeriesDrl.selectByPartOfVisibleText(panel.getSeries());
-        }
-        if (!panel.getSeriesCaption().equalsIgnoreCase("")) {
-            panelSeriesCaptionTxt.enter(panel.getSeriesCaption());
-        }
-        if (!panel.getLegends().equalsIgnoreCase("")) {
-            panelLegendsRbn.set(panel.getLegends());
-        }
-        if (!panel.getDataLabels().equalsIgnoreCase("")) {
-            String[] labels;
-            labels = panel.getDataLabels().split(",");
-            for (String temp : labels) {
-                panelDataLabelsCb.click();
-            }
-        }
-        panelOKBtn.click();
+    public void openFolder() {
+        openFolderBtn.click();
     }
+
 
     @Step
     public boolean doesItemDisplayCorrectly(Hashtable<String, String> data) {
@@ -511,8 +467,50 @@ public class DashboardPage extends GeneralPage {
     }
 
 
+    @Step
     public boolean doesPanelDisplays() {
         return panelListLnk.isDisplayed();
+    }
+
+    @Step
+    public void chooseFolderForm(String value) {
+        openFolder();
+        List<WebElement> folderLnks = folderLnk.elements();
+        for (WebElement folderLnk : folderLnks) {
+            if (folderLnk.getText().equalsIgnoreCase(value)) {
+                folderLnk.click();
+            }
+        }
+        selectionOKBtn.click();
+    }
+
+    @Step
+    public void chooseFolderForm(String value1, String value2) {
+        openFolder();
+
+        List<WebElement> toggleBtns = toggleBtn.elements();
+
+        for (int i = 0; i < toggleBtns.size(); i++) {
+            List<WebElement> folderLnks = folderLnk.elements();
+            if (folderLnks.get(i).getText().equalsIgnoreCase(value1)) {
+                toggleBtns.get(i).click();
+
+            }
+            folderLnks = folderLnk.elements();
+            for (int j = 0; j < folderLnks.size(); j++) {
+                if (folderLnks.get(j).getText().equalsIgnoreCase(value2)) {
+                    folderLnks.get(j).click();
+                }
+            }
+
+        }
+
+        selectionOKBtn.click();
+    }
+
+    @Step
+    public boolean doesFolderTextDisplay(String value) {
+        return folderTxt.getValue().equalsIgnoreCase(value);
     }
 }
 

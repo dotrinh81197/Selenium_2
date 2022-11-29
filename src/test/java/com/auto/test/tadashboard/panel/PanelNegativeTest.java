@@ -26,7 +26,7 @@ public class PanelNegativeTest extends TestBase {
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
-        panelPage.clickPanelOKButton();
+        panelPage.clickOKButton();
 
         AlertMessage alertMessage = new AlertMessage("panelDisplayNameIsRequired");
 

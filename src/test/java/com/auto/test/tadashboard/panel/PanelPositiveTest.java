@@ -466,5 +466,69 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Test(description = "Verify that user is able to navigate properly to folders with 'Select Folder' form")
+    public void DA_PANEL_TC047_User_Can_Navigate_Properly_To_Folder_With_Select_Folder_Form() {
+
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page = new Page();
+        dashboardPage.createNewPage(page);
+        WebDriverUltis.waitForPageLoad();
+
+        Panel panel = new Panel();
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        dashboardPage.createNewPanel(panel);
+
+        String folder = "Car Rental";
+        dashboardPage.chooseFolderForm(folder);
+
+        softAssert.assertTrue(dashboardPage.doesFolderTextDisplay("/" + folder));
+        dashboardPage.clickPanelConfigurationCancelBtn();
+        softAssert.assertAll();
+
+    }
+
+    @Test(description = "Verify that all folder paths of corresponding item type ( e.g. Actions, Test Modules) are correct in Select Folder form")
+    public void DA_PANEL_TC049_All_Folder_Paths_Of_Corresponding_Item_Type_Select_Folder_Form() {
+
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        Page page = new Page();
+        dashboardPage.createNewPage(page);
+        WebDriverUltis.waitForPageLoad();
+
+        Panel panel = new Panel();
+        dashboardPage.clickChoosePanelBtn();
+        dashboardPage.clickCreateNewPanelBtn();
+        dashboardPage.createNewPanel(panel);
+
+        String folder1 = "Car Rental";
+        String folder2 = "Actions";
+        dashboardPage.chooseFolderForm(folder1, folder2);
+
+        softAssert.assertTrue(dashboardPage.doesFolderTextDisplay("/" + folder1 + "/" + folder2));
+        dashboardPage.clickPanelConfigurationCancelBtn();
+        softAssert.assertAll();
+
+    }
+
+    @Test(description = "Verify that user is able to successfully edit Display Name of any Panel providing that the name is not duplicated with existing Panels' name")
+    public void DA_PANEL_TC050_Able_To_Edit_Display_Name_With_Valid_Panel_Name() {
+
+        loginPage.login(user);
+        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage.gotoPanelPage();
+        PanelPage panelPage = new PanelPage();
+        Panel panel = new Panel();
+        panelPage.clickAddNewLink();
+        panelPage.createNewPanel(panel);
+        panelPage.editPanelName(panel, FakerUtils.word());
+        softAssert.assertTrue(panelPage.doesPanelDisplays(panel));
+
+        softAssert.assertAll();
+
+    }
+
 
 }

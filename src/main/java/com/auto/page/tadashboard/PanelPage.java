@@ -24,10 +24,6 @@ public class PanelPage extends GeneralPage {
         addNewLnk.click();
     }
 
-    public void clickPanelOKButton() {
-        panelOKBtn.click();
-    }
-
     public void clickPanelCancelBtn() {
         panelCancelBtn.click();
     }
@@ -178,6 +174,14 @@ public class PanelPage extends GeneralPage {
     public void fillCreatePanelModal(String displayName, String series) {
         enterDisplayNameTxt(displayName);
         selectSeriesDrl(series);
+    }
+
+    @Step
+    public void editPanelName(Panel panel, String newName) {
+        clickEditPanel(panel);
+        enterDisplayNameTxt(newName);
+        panel.setDisplayName(newName);
+        clickOKButton();
     }
 
     @Step
