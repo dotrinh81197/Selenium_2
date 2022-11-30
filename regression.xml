@@ -8,9 +8,12 @@
     <test name="Regression tests">
         <parameter name="platform" value="chrome"/>
         <classes>
+            <class name="com.auto.test.tadashboard.LoginPositiveTest"/>
+            <class name="com.auto.test.tadashboard.LoginNegativeTest"/>
             <class name="com.auto.test.tadashboard.DashboardPositiveTest"/>
-<!--            <class name="com.auto.test.tadashboard.LoginNegativeTest"/>-->
             <class name="com.auto.test.tadashboard.DashboardNegativeTest"/>
+            <class name="com.auto.test.tadashboard.panel.PanelNegativeTest"/>
+            <class name="com.auto.test.tadashboard.panel.PanelPositiveTest"/>
         </classes>
     </test>
 

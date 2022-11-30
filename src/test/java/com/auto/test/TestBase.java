@@ -66,6 +66,7 @@ public class TestBase {
             if (dashboardPage.doesCancelBtnEnable()) {
                 dashboardPage.closeModalBtn();
             }
+            Selaium.refresh();
             dashboardPage.removeAllPage();
             dashboardPage.gotoPanelPage();
             PanelPage panelPage = new PanelPage();

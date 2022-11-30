@@ -9,10 +9,12 @@ import com.auto.page.tadashboard.DataProfilesPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
+import com.auto.testng.TestListener;
 import com.auto.utils.FakerUtils;
 import com.auto.utils.JsonUtils;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 
+@Listeners(TestListener.class)
 public class PanelPositiveTest extends TestBase {
 
     SoftAssert softAssert = new SoftAssert();

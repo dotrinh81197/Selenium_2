@@ -10,6 +10,7 @@ import com.auto.testng.TestListener;
 import com.auto.utils.FakerUtils;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
+import com.logigear.statics.Selaium;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -257,7 +258,7 @@ public class DashboardPositiveTest extends TestBase {
 
         dashboardPage.editDisplayAfter(page2, "Overview");
         WebDriverUltis.waitForPageLoad();
-        dashboardPage.doesNewPageDisplayOnTheRight(page2.getPageName(), "Overview");
+        softAssert.assertTrue(dashboardPage.doesNewPageDisplayOnTheRight(page2.getPageName(), "Overview"));
 
         softAssert.assertAll();
     }

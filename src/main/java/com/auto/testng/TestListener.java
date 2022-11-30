@@ -2,6 +2,7 @@ package com.auto.testng;
 
 import com.auto.utils.Constants;
 import com.auto.utils.ExecutionContext;
+import com.auto.utils.FakerUtils;
 import com.auto.utils.FileUtils;
 import com.logigear.statics.Selaium;
 import io.qameta.allure.Allure;
@@ -15,6 +16,7 @@ import org.testng.ITestResult;
 
 import java.io.ByteArrayInputStream;
 import java.util.Properties;
+import java.util.UUID;
 
 
 public class TestListener implements ITestListener {
@@ -42,14 +44,16 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    @Attachment(type="image/png")
+    @Attachment(type = "image/png")
     public void onTestFailure(ITestResult result) {
         try {
             if (Selaium.driverContainer().isAlive()) {
                 ByteArrayInputStream input = new ByteArrayInputStream(Selaium.takeScreenShot(OutputType.BYTES));
-                Allure.addAttachment("screenShot", input);
+                Allure.addAttachment(UUID.randomUUID().toString(), input);
             }
             if (result.getThrowable() instanceof AssertionError) {
+                ByteArrayInputStream input = new ByteArrayInputStream(Selaium.takeScreenShot(OutputType.BYTES));
+                Allure.addAttachment("screenShot", input);
                 // Submit bugs to Jira automatically
                 // Submit test result into TestRail
             }

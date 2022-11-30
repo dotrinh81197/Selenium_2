@@ -18,6 +18,7 @@ public class LoginPage {
 
     @Step("Login by username and password")
     public void login(User user) {
+        WebDriverUltis.waitForPageLoad();
         enterUsernameTxt(user.getUsername());
         enterPasswordTxt(user.getPassword());
         clickLoginBtn();
@@ -25,6 +26,7 @@ public class LoginPage {
 
     @Step("Enter username value")
     public void enterUsernameTxt(String value) {
+        WebDriverUltis.waitForPageLoad();
         userNameTxt.enter(value);
     }
 

@@ -7,9 +7,13 @@ import com.auto.page.tadashboard.DashboardPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
+import com.auto.testng.TestListener;
 import com.auto.utils.WebDriverUltis;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+@Listeners(TestListener.class)
 
 public class PanelNegativeTest extends TestBase {
 

@@ -6,6 +6,7 @@ import com.auto.model.User;
 import com.auto.page.tadashboard.DashboardPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.test.TestBase;
+import com.auto.testng.TestListener;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
@@ -17,7 +18,7 @@ import static com.auto.utils.Constants.LOADING_TIME;
 import static com.auto.utils.Constants.LOGIN_PAGE_URL;
 import static com.logigear.statics.Selaium.open;
 
-@Listeners
+@Listeners(TestListener.class)
 public class DashboardNegativeTest extends TestBase {
     User user = new User();
     LoginPage loginPage = new LoginPage();
@@ -37,6 +38,7 @@ public class DashboardNegativeTest extends TestBase {
 
         softAssert.assertTrue(dashboardPage.isGlobalSettingLnkUnClickable());
         softAssert.assertAll();
+        dashboardPage.clickCancelBtn();
 
     }
 
@@ -50,6 +52,7 @@ public class DashboardNegativeTest extends TestBase {
 
         Page parentPage = new Page();
         dashboardPage.createNewPage(parentPage);
+        WebDriverUltis.waitForPageLoad();
 
         Page childPage = new Page();
         dashboardPage.createNewPage(childPage.getPageName(), parentPage.getPageName());

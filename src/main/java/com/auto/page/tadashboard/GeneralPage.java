@@ -271,18 +271,6 @@ public class GeneralPage {
     }
 
     @Step
-    public boolean clickOnPage(Page page) {
-        try {
-            page.getPageName();
-            pageLnk.set(page.getPageName());
-            WebDriverUltis.forceClick(pageLnk.element());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Step
     public boolean clickChoosePanelButton() {
         try {
             choosePanelBtn.click();

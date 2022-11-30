@@ -57,7 +57,7 @@ public class DashboardPage extends GeneralPage {
     private final Element panelTypeRbn = new Element("//label[@class='panel_setting_paneltype' and normalize-space(contains(text(),'%s'))] //input[@name='radPanelType']");
     private final Element panelLegendsRbn = new Element("//input[@name='radPlacement' and @value='%s']");
     private final Element panelNameLnk = new Element("//div[@class='panel_tag1']//tr//a[text()='%s']");
-        private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
+    private final Element panelCancelBtn = new Element("//div[@id='div_panelPopup']//input[@id='Cancel']");
     private final Element panelConfigurationCancelBtn = new Element("//input[@onclick='Dashboard.closePanelConfigurationDlg();']");
 
     private final Element heightTxt = new Element("//input[@id='txtHeight']");
@@ -291,6 +291,7 @@ public class DashboardPage extends GeneralPage {
             WebDriverUltis.forceClick(pageNoLnk.element());
             clickDeletePageBtn();
             WebDriverUltis.acceptAlert();
+            WebDriverUltis.waitForPageLoad();
 
         }
     }

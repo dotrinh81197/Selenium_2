@@ -3,14 +3,17 @@ package com.auto.test.tadashboard;
 import com.auto.model.User;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.test.TestBase;
+import com.auto.testng.TestListener;
 import com.auto.utils.DataProviderUtil;
 import com.auto.utils.WebDriverUltis;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 
 import static com.auto.utils.Constants.INVALID_USERNAME_PASSWORD;
 
+@Listeners(TestListener.class)
 public class LoginNegativeTest extends TestBase {
 
     SoftAssert softAssert = new SoftAssert();
@@ -23,6 +26,7 @@ public class LoginNegativeTest extends TestBase {
         loginPage.login(user);
 
         softAssert.assertTrue(loginPage.doesAlertTextDisplay(INVALID_USERNAME_PASSWORD));
+        softAssert.assertAll();
         WebDriverUltis.acceptAlert();
     }
 }

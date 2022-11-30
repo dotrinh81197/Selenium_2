@@ -4,10 +4,13 @@ import com.auto.model.User;
 import com.auto.page.tadashboard.DashboardPage;
 import com.auto.page.tadashboard.LoginPage;
 import com.auto.test.TestBase;
+import com.auto.testng.TestListener;
 import com.auto.utils.Constants;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+@Listeners(TestListener.class)
 public class LoginPositiveTest extends TestBase {
 
     SoftAssert softAssert = new SoftAssert();
@@ -34,6 +37,7 @@ public class LoginPositiveTest extends TestBase {
 
         loginPage.selectRepository(Constants.TEST_REPOSITORY);
         loginPage.login(user);
+        dashboardPage.logout();
 
         softAssert.assertTrue(dashboardPage.doesContentDisplay());
 
