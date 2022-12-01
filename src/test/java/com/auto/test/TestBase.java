@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import org.testng.asserts.SoftAssert;
 
 import java.io.File;
 import java.io.IOException;

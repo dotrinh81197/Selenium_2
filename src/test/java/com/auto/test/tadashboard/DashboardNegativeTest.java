@@ -10,6 +10,7 @@ import com.auto.testng.TestListener;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
 import com.logigear.statics.Selaium;
+import io.qameta.allure.Step;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -22,12 +23,12 @@ import static com.logigear.statics.Selaium.open;
 public class DashboardNegativeTest extends TestBase {
     User user = new User();
     LoginPage loginPage = new LoginPage();
-    SoftAssert softAssert = new SoftAssert();
 
-    //negative
+    @Step
     @Test(description = "Verify that user is unable open more than 1 New Page dialog")
     public void DA_MP_TC011_User_is_unable_open_more_than_1_New_Page_dialog() {
-        
+
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -42,9 +43,11 @@ public class DashboardNegativeTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that user is unable to duplicate the name of sibbling page under the same parent page")
     public void DA_MP_TC022_User_is_unable_to_duplicate_the_name_of_sibbling_page_under_the_same_parent_page() {
-       
+
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -66,6 +69,5 @@ public class DashboardNegativeTest extends TestBase {
         dashboardPage.clickCancelBtn();
 
         softAssert.assertAll();
-
     }
 }

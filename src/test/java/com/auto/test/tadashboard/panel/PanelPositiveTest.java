@@ -14,6 +14,7 @@ import com.auto.utils.FakerUtils;
 import com.auto.utils.JsonUtils;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
+import io.qameta.allure.Step;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -25,13 +26,14 @@ import java.util.Hashtable;
 @Listeners(TestListener.class)
 public class PanelPositiveTest extends TestBase {
 
-    SoftAssert softAssert = new SoftAssert();
     User user = new User();
     LoginPage loginPage = new LoginPage();
 
 
+    @Step
     @Test(dataProvider = "getDataItemPanelAvailable", dataProviderClass = JsonUtils.class, description = "Verify that when Choose panels form is expanded all pre-set panels are populated and sorted correctly")
     public void DA_PANEL_TC027_Choose_Panel_form_expanded_all_pre_set_and_sorted_correctly(Hashtable<String, String> data) {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page newPage = new Page();
@@ -52,8 +54,10 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
     public void DA_PANEL_TC028_When_Add_New_Panel_form_is_on_focused_all_other_control_form_is_disabled_or_locked() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -68,8 +72,10 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that when Add New Panel form is on focused all other control/form is disabled or locked")
     public void DA_PANEL_TC029_When_Add_New_Panel_form_is_on_focused_all_other_control_form_is_disabled_or_locked() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -85,8 +91,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that no special character except '@' character is allowed to be inputted into Display Name field")
     public void DA_PANEL_TC030_No_special_character_except_character_is_allowed_to_be_inputted_into_Display_Name_field() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -111,8 +119,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that correct panel setting form is displayed with corresponding panel type selected")
     public void DA_PANEL_TC031_Panel_Setting_Form_Display_Correctly_With_Corresponding_Panel_Type_Selected() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -128,8 +138,10 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that Data Profile listing of Add New Panel and Edit Panel control/form are in alphabetical order")
     public void DA_PANEL_TC033_Data_Profile_listing_of_Add_New_Panel_and_Edit_Panel_control_form_are_in_alphabetical_order() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -149,8 +161,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that newly created data profiles are populated correctly under the Data Profile dropped down menu in  Add New Panel and Edit Panel control/form")
     public void DA_PANEL_TC034_Data_Profile_listing_of_Add_New_Panel_and_Edit_Panel_control_form_are_in_alphabetical_order() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         String dataProfileName = FakerUtils.word();
         DashboardPage dashboardPage = new DashboardPage();
@@ -172,8 +186,10 @@ public class PanelPositiveTest extends TestBase {
         dataProfilesPage.deleteAllDataProfileCreated();
     }
 
+    @Step
     @Test(description = "Verify that no special character except '@' character is allowed to be inputted into Chart Title field")
     public void DA_PANEL_TC035_No_Special_Character_Except_At_Character_Is_Allowed_Into_Chart_Title_Field() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.gotoPanelPage();
@@ -200,8 +216,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that all chart types ( Pie, Single Bar, Stacked Bar, Group Bar, Line ) are listed correctly under Chart Type dropped down menu")
     public void DA_PANEL_TC036_All_chart_types_Pie_Single_Bar_Stacked_Bar_Group_Bar_Line_are_listed_correctly_under_Chart_Type_dropped_down_menu() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.gotoPanelPage();
@@ -213,8 +231,10 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that Category, Series and Caption field are enabled and disabled correctly corresponding to each type of the Chart Type", dataProviderClass = JsonUtils.class, dataProvider = "getDataChartType")
     public void DA_PANEL_TC037_Category_Series_Caption_Field_Enabled_Disabled_Correctly_To_Each_Chart_Type(Hashtable<String, String> data) {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page validPage = new Page();
@@ -234,8 +254,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that all settings within Add New Panel and Edit Panel form stay unchanged when user switches between 2D and 3D radio buttons")
     public void DA_PANEL_TC038_All_Setting_Add_New_Panel_And_Edit_Panel_Stay_Unchanged_When_Switches_Between_2D_3D() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page validPage = new Page();
@@ -273,8 +295,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(dataProvider = "getLegendType", dataProviderClass = JsonUtils.class, description = "Verify that all settings within 'Add New Panel' and 'Edit Panel' form stay unchanged when user switches between 'Legends' radio buttons")
     public void DA_PANEL_TC039_All_Setting_Form_Stay_Unchanged_When_Switch_Legends(Hashtable<String, String> data) {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.gotoPanelPage();
@@ -300,8 +324,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(dataProvider = "getDataLabels", dataProviderClass = JsonUtils.class, description = "Verify that all 'Data Labels' check boxes are enabled and disabled correctly corresponding to each type of 'Chart Type'")
     public void DA_PANEL_TC040_Data_Labels_Display_Correctly(Hashtable<String, String> data) {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page validPage = new Page();
@@ -321,8 +347,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(dataProvider = "getDataLabelsType", dataProviderClass = JsonUtils.class, description = "Verify that all 'Data Labels' check boxes are enabled and disabled correctly corresponding to each type of 'Chart Type'")
     public void DA_PANEL_TC041_Data_Labels_Display_Correctly(Hashtable<String, String> data) {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
 
@@ -339,8 +367,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that all pages are listed correctly under the Select page dropped down menu of Panel Configuration form/ control")
     public void DA_PANEL_TC042_All_pages_are_listed_correctly_under_the_Select_page_dropped_down_menu_of_Panel_Configuration_form_control() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         String newPage1 = FakerUtils.word();
@@ -369,8 +399,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that only integer number inputs from 300-800 are valid for Height field")
     public void DA_PANEL_TC043_Only_integer_number_inputs_from_300_800_are_valid_for_Height_field() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         String newPage1 = FakerUtils.word();
@@ -406,8 +438,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that Height field is not allowed to be empty")
     public void DA_PANEL_TC044_Height_field_is_not_allowed_to_be_empty() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page page = new Page();
@@ -425,8 +459,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that Folder field is not allowed to be empty")
     public void DA_PANEL_TC045_Folder_field_is_not_allowed_to_be_empty() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page page = new Page();
@@ -444,9 +480,10 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that only valid folder path of corresponding item type ( e.g. Actions, Test Modules) are allowed to be entered into Folder field")
     public void DA_PANEL_TC046_Only_valid_folder_path_of_corresponding_item_type_Actions_Test_Modules_are_allowed_to_be_entered_into_Folder_field() {
-
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page page = new Page();
@@ -469,9 +506,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that user is able to navigate properly to folders with 'Select Folder' form")
     public void DA_PANEL_TC047_User_Can_Navigate_Properly_To_Folder_With_Select_Folder_Form() {
-
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page page = new Page();
@@ -492,9 +530,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that all folder paths of corresponding item type ( e.g. Actions, Test Modules) are correct in Select Folder form")
     public void DA_PANEL_TC049_All_Folder_Paths_Of_Corresponding_Item_Type_Select_Folder_Form() {
-
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         Page page = new Page();
@@ -516,9 +555,10 @@ public class PanelPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that user is able to successfully edit Display Name of any Panel providing that the name is not duplicated with existing Panels' name")
     public void DA_PANEL_TC050_Able_To_Edit_Display_Name_With_Valid_Panel_Name() {
-
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.gotoPanelPage();
@@ -530,8 +570,7 @@ public class PanelPositiveTest extends TestBase {
         softAssert.assertTrue(panelPage.doesPanelDisplays(panel));
 
         softAssert.assertAll();
-
     }
 
-
 }
+

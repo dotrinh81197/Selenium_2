@@ -9,6 +9,7 @@ import com.auto.page.tadashboard.PanelPage;
 import com.auto.test.TestBase;
 import com.auto.testng.TestListener;
 import com.auto.utils.WebDriverUltis;
+import io.qameta.allure.Step;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -17,12 +18,13 @@ import org.testng.asserts.SoftAssert;
 
 public class PanelNegativeTest extends TestBase {
 
-    SoftAssert softAssert = new SoftAssert();
     User user = new User();
     LoginPage loginPage = new LoginPage();
 
+    @Step
     @Test(description = "Verify that user is unable to create new panel when (*) required field is not filled")
     public void DA_PANEL_TC029_User_is_unable_to_create_new_panel_when_required_field_is_not_filled() {
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -39,23 +41,25 @@ public class PanelNegativeTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that user is not allowed to create panel with duplicated Display Name")
     public void DA_PANEL_TC032_User_is_not_allowed_to_create_panel_with_duplicated_Display_Name() {
-        loginPage.login(user);
+        SoftAssert softAssert = new SoftAssert();
+       loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
         dashboardPage.gotoPanelPage();
 
         PanelPage panelPage = new PanelPage();
         panelPage.clickAddNewLink();
-        Panel panel = new Panel("panelValidDisplayName");
+        Panel panel = new Panel();
         panelPage.createNewPanel(panel);
         WebDriverUltis.waitForPageLoad();
 
         panelPage.clickAddNewLink();
         panelPage.createNewPanel(panel);
 
-        AlertMessage alertMessage = new AlertMessage("duplicatedDisplayNameAlert", panel.getDisplayName());
+        AlertMessage alertMessage = new AlertMessage("pageNameAlreadyExist", panel.getDisplayName());
         softAssert.assertTrue(panelPage.doesAlertTextDisplay(alertMessage.getText()));
         softAssert.assertAll();
         panelPage.deleteAllPanels();
