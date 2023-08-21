@@ -10,6 +10,8 @@ import com.auto.testng.TestListener;
 import com.auto.utils.FakerUtils;
 import com.auto.utils.Utilities;
 import com.auto.utils.WebDriverUltis;
+import com.logigear.statics.Selaium;
+import io.qameta.allure.Step;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -18,11 +20,12 @@ import org.testng.asserts.SoftAssert;
 public class DashboardPositiveTest extends TestBase {
     User user = new User();
     LoginPage loginPage = new LoginPage();
-    SoftAssert softAssert = new SoftAssert();
 
+    @Step
     @Test(description = "Verify that user is able to add additional pages besides Overview page successfully")
     public void DA_MP_TC012_User_is_able_to_add_additional_pages_besides_Overview_page_successfully() throws InterruptedException {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -37,9 +40,11 @@ public class DashboardPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that the newly added main parent page is positioned at the location specified as set with Displayed After field of New Page form on the main page bar/Parent Page dropped down menu")
     public void DA_MP_TC013_The_newly_added_main_parent_page_is_positioned_at_the_location_specified_as_set_with_Displayed_After_field_of_New_Page_form_on_the_main_page_bar_Parent_Page_dropped_down_menu() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -60,9 +65,11 @@ public class DashboardPositiveTest extends TestBase {
 
     }
 
+    @Step
     @Test(description = "Verify that user can remove any main parent page except 'Overview' page successfully and the order of pages stays persistent as long as there is not children page under it")
     public void DA_MP_TC017_User_can_remove_any_Main_parent_page_except_Overview_page_and_the_order_of_pages_stay_persistent_is_not_children_page() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -107,14 +114,17 @@ public class DashboardPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that user is able to add additional sibling pages to the parent page successfully")
     public void DA_MP_TC018_User_is_able_to_add_additional_sibling_pages_to_the_parent_page_successfully() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
         Page parentPage = new Page();
         dashboardPage.createNewPage(parentPage);
+        WebDriverUltis.waitForPageLoad();
 
         Page childPage = new Page();
         dashboardPage.createNewPage(childPage.getPageName(), parentPage.getPageName());
@@ -124,15 +134,17 @@ public class DashboardPositiveTest extends TestBase {
         Page childPage2 = new Page();
         dashboardPage.createNewPage(childPage2.getPageName(), childPage.getPageName());
         WebDriverUltis.waitForPageLoad();
-        childPage2.setParentPage( childPage.getPageName());
+        childPage2.setParentPage(childPage.getPageName());
         softAssert.assertTrue(dashboardPage.doesNewPageDisplay(childPage2, childPage));
         softAssert.assertAll();
 
     }
 
+    @Step
     @Test(description = "Verify that user is able to add additional sibbling page levels to the parent page successfully")
     public void DA_MP_TC019_User_is_able_to_add_additional_sibbling_page_levels_to_the_parent_page_successfully() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -144,9 +156,11 @@ public class DashboardPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that user is able to delete sibling page as long as that page has not children page under it")
     public void DA_MP_TC020_User_is_able_to_delete_sibling_page_as_long_as_that_page_has_not_children_page_under_it() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -173,15 +187,17 @@ public class DashboardPositiveTest extends TestBase {
         WebDriverUltis.acceptAlert();
 
         dashboardPage.removePage(page2.getPageName());
-        dashboardPage.doesPageNotDisplay(page2);
+        softAssert.assertTrue(dashboardPage.doesPageNotDisplay(page2));
 
         softAssert.assertAll();
 
     }
 
+    @Step
     @Test(description = "Verify that user is able to edit the name of the page (Parent/Sibbling) successfully")
     public void DA_MP_TC021_User_is_able_to_edit_the_name_of_the_page_Parent_Sibbling_successfully() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -196,14 +212,16 @@ public class DashboardPositiveTest extends TestBase {
 
         dashboardPage.doesNewPageDisplay(page1.getPageName());
         dashboardPage.editPageName(page2, FakerUtils.word());
-        dashboardPage.doesNewPageDisplay(page2.getPageName());
+        softAssert.assertTrue(dashboardPage.doesNewPageDisplay(page2.getPageName()));
 
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that user is able to edit the parent page of the sibbling page successfully")
     public void DA_MP_TC023_User_is_able_to_edit_the_parent_page_of_the_sibbling_page_successfully() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -215,14 +233,16 @@ public class DashboardPositiveTest extends TestBase {
         WebDriverUltis.waitForPageLoad();
 
         dashboardPage.editPageName(page1, FakerUtils.word());
-        dashboardPage.doesNewPageDisplay(page1.getPageName());
+        softAssert.assertTrue(dashboardPage.doesNewPageDisplay(page1.getPageName()));
 
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that 'Bread Crums' navigation is correct")
     public void DA_MP_TC024_Bread_Crums_navigation_correctly() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -243,9 +263,11 @@ public class DashboardPositiveTest extends TestBase {
         softAssert.assertAll();
     }
 
+    @Step
     @Test(description = "Verify that page listing is correct when user edit 'Display After'  field of a specific page")
     public void DA_MP_TC025_Page_listing_is_correct_when_user_edit_Display_After_field_of_a_specific_page() {
 
+        SoftAssert softAssert = new SoftAssert();
         loginPage.login(user);
 
         DashboardPage dashboardPage = new DashboardPage();
@@ -257,7 +279,7 @@ public class DashboardPositiveTest extends TestBase {
 
         dashboardPage.editDisplayAfter(page2, "Overview");
         WebDriverUltis.waitForPageLoad();
-        dashboardPage.doesNewPageDisplayOnTheRight(page2.getPageName(), "Overview");
+        softAssert.assertTrue(dashboardPage.doesNewPageDisplayOnTheRight(page2.getPageName(), "Overview"));
 
         softAssert.assertAll();
     }

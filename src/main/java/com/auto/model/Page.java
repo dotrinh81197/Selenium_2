@@ -2,7 +2,6 @@ package com.auto.model;
 
 import com.auto.utils.FakerUtils;
 
-
 import java.util.Hashtable;
 
 @lombok.Data
@@ -21,6 +20,7 @@ public class Page {
         this.numberOfColumns = "";
         this.displayAfter = "";
         this.isPublic = "";
+
     }
 
     public Page(String pageName, String displayAfter) {

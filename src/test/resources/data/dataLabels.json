@@ -1,0 +1,51 @@
+{
+  "dataLabels": [
+    {
+      "ChartType": "Pie",
+      "DataLabelSeriesDisable": false,
+      "DataLabelCategoriesDisable": true,
+      "DataLabelValueDisable": false,
+      "DataLabelPercentageDisable": false
+    },
+    {
+      "ChartType": "Single Bar",
+      "DataLabelSeriesDisable": false,
+      "DataLabelCategoriesDisable": true,
+      "DataLabelValueDisable": false,
+      "DataLabelPercentageDisable": false
+    }
+  ,
+    {
+      "ChartType": "Stacked Bar",
+      "DataLabelSeriesDisable": false,
+      "DataLabelCategoriesDisable": false,
+      "DataLabelValueDisable": false,
+      "DataLabelPercentageDisable": false
+    },
+    {
+      "ChartType": "Group Bar",
+      "DataLabelSeriesDisable": false,
+      "DataLabelCategoriesDisable": false,
+      "DataLabelValueDisable": false,
+      "DataLabelPercentageDisable": false
+    },
+    {
+      "ChartType": "Line",
+      "DataLabelSeriesDisable": true,
+      "DataLabelCategoriesDisable": true,
+      "DataLabelValueDisable": true,
+      "DataLabelPercentageDisable": true
+    }
+  ],
+  "dataLabelCbType": [
+    {
+      "dataLabelType": "Series"
+    },
+    {
+      "dataLabelType": "Value"
+    },
+    {
+      "dataLabelType": "Percentage"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "panelInvalidDisplayName": [
+    {
+      "type": "",
+      "dataProfile": "",
+      "displayName": "Logigear#$%",
+      "chartTitle": "",
+      "isShowTitle": "",
+      "chartType": "",
+      "style": "",
+      "category": "",
+      "categoryCaption": "",
+      "series": "",
+      "seriesCaption": "",
+      "legends": "",
+      "dataLabels": ""
+    }
+  ],
+  "panelValidDisplayName": [
+    {
+      "type": "Chart",
+      "dataProfile": "Action Implementation By Status",
+      "displayName": "Logigear@",
+      "chartTitle": "",
+      "isShowTitle": "",
+      "chartType": "",
+      "style": "2D",
+      "category": "",
+      "categoryCaption": "",
+      "series": " Name",
+      "seriesCaption": "",
+      "legends": "",
+      "dataLabels": ""
+    }
+  ],
+  "panelValidChartTitle": [
+    {
+      "type": "",
+      "dataProfile": "",
+      "displayName": "Logigear@",
+      "chartTitle": "Chart@",
+      "isShowTitle": "",
+      "chartType": "",
+      "style": "",
+      "category": "",
+      "categoryCaption": "",
+      "series": " Name",
+      "seriesCaption": "",
+      "legends": "",
+      "dataLabels": ""
+    }
+  ],
+  "panelInvalidChartTitle": [
+    {
+      "type": "",
+      "dataProfile": "",
+      "displayName": "Logigear@",
+      "chartTitle": "Chart#$%",
+      "isShowTitle": "",
+      "chartType": "",
+      "style": "",
+      "category": "",
+      "categoryCaption": "",
+      "series": " Name",
+      "seriesCaption": "",
+      "legends": "",
+      "dataLabels": ""
+    }
+  ]
+}

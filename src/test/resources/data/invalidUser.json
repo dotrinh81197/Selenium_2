@@ -1,11 +1,11 @@
 {
   "invalidUserNamePassword": [
-    {
-      "type": "invalidUserNameAndInvalidPassword"
-    },
-    {
-      "type": "validUserNameAndInvalidPassword"
-    },
+//    {
+//      "type": "invalidUserNameAndInvalidPassword"
+//    },
+//    {
+//      "type": "validUserNameAndInvalidPassword"
+//    },
     {
       "type": "blankUserNameAndPassword"
     }

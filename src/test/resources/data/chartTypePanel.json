@@ -1,0 +1,39 @@
+{
+  "chartType": [
+    {
+      "ChartType": "Pie",
+      "CategoryFieldDisable": true,
+      "SeriesFieldDisable": false,
+      "CategoryCaptionFieldDisable": true,
+      "SeriesCaptionFieldDisable": true
+    },
+    {
+      "ChartType": "Single Bar",
+      "CategoryFieldDisable": true,
+      "SeriesFieldDisable": false,
+      "CategoryCaptionFieldDisable": false,
+      "SeriesCaptionFieldDisable": false
+    },
+    {
+      "ChartType": "Stacked Bar",
+      "CategoryFieldDisable": false,
+      "SeriesFieldDisable": false,
+      "CategoryCaptionFieldDisable": false,
+      "SeriesCaptionFieldDisable": false
+    },
+    {
+      "ChartType": "Group Bar",
+      "CategoryFieldDisable": false,
+      "SeriesFieldDisable": false,
+      "CategoryCaptionFieldDisable": false,
+      "SeriesCaptionFieldDisable": false
+    },
+    {
+      "ChartType": "Line",
+      "CategoryFieldDisable": false,
+      "SeriesFieldDisable": false,
+      "CategoryCaptionFieldDisable": false,
+      "SeriesCaptionFieldDisable": false
+    }
+  ]
+}

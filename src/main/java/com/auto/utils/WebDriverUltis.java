@@ -18,6 +18,7 @@ public class WebDriverUltis {
     @Step("Accept alert pop up")
     public static void acceptAlert() {
         Selaium.confirm();
+//        WebDriverUltis.waitForPageLoad();
     }
 
 
@@ -42,7 +43,6 @@ public class WebDriverUltis {
     }
 
     public static String getCurrentTitlePage() {
-        return driverContainer().title();
-    }
+        return driverContainer().title();}
 
 }
